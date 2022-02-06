@@ -18,7 +18,7 @@ if (isset($_POST['done'])) {
     $sql ="UPDATE `post` SET `id`='$id',`first`='$first',`last`='last',`emp_id`='$emp_id',`gender`='$gender',`uname`='$uname',`int`=' $int',`number`=' $number',`comm`=' $comm',`agree`=' $agree' WHERE id=$id";
    // $sql"Udate `post` SET";
     $result = mysqli_query($con, $sql);
-    
+     
 }
 
 ?>
