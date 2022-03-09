@@ -93,7 +93,7 @@ $errors =$valid-> validateForm();
             </div>
 
             <tr>
-              <td colspan="2">Select techlgy: </td>
+              <td colspan="2">Select techlogy: </td>
             </tr>
             <tr>
               <td>PHP</td>
