@@ -16,6 +16,7 @@ $errors =$valid-> validateForm();
     $old_email=$_POST['email'];
     $old_address=$_POST['address'];
     $old_gender=$_POST['gender'];
+    
     //print_r($errors);
   }else{
     $data = [

@@ -67,7 +67,7 @@ if (isset($_POST['update'])) {
                             <h4>Address</h4> <input type="text" name="address"  value="<?php echo $profile->address; ?>">
                         </div>
                         <div class="gender">
-                            <input type="radio" name="gender" value="male" checked> Male <input type="radio" name="gender" value="female"> Female
+                            <input type="radio" name="gender" value="<?php echo $profile->gender; ?>" checked> Male <input type="radio" name="gender" value="<?php echo $profile->gender; ?>" checked> Female
                         </div>
 
                         <tr>
