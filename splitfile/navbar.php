@@ -38,6 +38,12 @@
           <li class="nav-item">
             <a class="nav-link" href="./list.php" class="container-fluid justify-content-start" class="btn btn-outline-success me-2">List</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./index.php" class="container-fluid justify-content-start" class="btn btn-outline-success me-2">Add new</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./login.php" class="container-fluid justify-content-start" class="btn btn-outline-success me-2">login</a>
+          </li>
          
           
           
