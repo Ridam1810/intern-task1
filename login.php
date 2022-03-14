@@ -52,7 +52,7 @@
 				<input type="password" placeholder="Password" name="password" value="" required>
 			</div>
 			<div class="input-group">
-				<button name="submit" class="btn">Login</button>
+				<button name="submit" class="btn">Login <a href="index1.php"></a></button>
 			</div>
 			<p class="login-register-text">Don't have an account? <a href="register.php">Register Here</a>.</p>
 		</form>
