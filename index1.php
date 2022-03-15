@@ -4,6 +4,10 @@
 include "init.php";
 include "validation.php";
 
+if (!isset($_SESSION['username'])) {
+  header("Location: login.php");
+}
+
 if (isset($_POST['signup'])) {
   $chk = '';
   $valid= new UserValidation($_POST);

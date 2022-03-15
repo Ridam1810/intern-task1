@@ -42,9 +42,17 @@
             <a class="nav-link" href="./index.php" class="container-fluid justify-content-start" class="btn btn-outline-success me-2">Add new</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="./login.php" class="container-fluid justify-content-start" class="btn btn-outline-success me-2">login</a>
+            <?php  if(isset($_SESSION['username'])){ ?>
+
+<a class="nav-link" href="./logout.php" class="container-fluid justify-content-start" class="btn btn-outline-success me-2">logout</a>
+
+
+            <?php } else { ?>
+<a class="nav-link" href="./login.php" class="container-fluid justify-content-start" class="btn btn-outline-success me-2">login</a>
+            <?php } ?>
+           
           </li>
-         
+        
           
           
           

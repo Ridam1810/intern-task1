@@ -10,7 +10,7 @@ include "validation.php";
 // session_start();
 
 // if (isset($_SESSION['username'])) {
-//     header("Location: index.php");
+//     header("Location: index1.php");
 // }
 
 if (isset($_POST['submit'])) {
@@ -18,17 +18,15 @@ if (isset($_POST['submit'])) {
 	$data = [
 		'username' => $_POST['username'],
 		'email' => $_POST['email'],
-		'password' => $_POST['password'],
-		'cpassword' => $_POST['cpassword']
+		'password' => sha1($_POST['password']),
+		'cpassword' => sha1($_POST['cpassword'])
 		
 	  ];
 
-	// 'username'=> $_POST['username'];
-	// 'email'= $_POST['email'];
-	// 'password'= sha1($_POST['password']);
-	// 'cpassword'= sha1($_POST['cpassword']);
+	
 
 	if ($data['password'] == $data['cpassword']) {
+
 
 		$query = $source->Query("Select * FROM users where email='".$_POST['email']."'");
 		$result = $source->SingleRow();
