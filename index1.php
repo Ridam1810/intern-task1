@@ -71,6 +71,9 @@ $errors =$valid-> validateForm();
     <div class="container">
       <form action="" method="POST" enctype="multipart/form-data">
         <div class="login">
+
+        <h5>  INDEX PAGE FOR REGISTER EMPLOYEE </h5>
+
           <h1>Registration</h1>
           <div class="inputall">
             <div class="input">
