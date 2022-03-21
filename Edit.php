@@ -1,6 +1,11 @@
 <?php
-include "init.php";
 
+include "init.php";
+include "validation.php";
+
+if (!isset($_SESSION['username'])) {
+  header("Location: login.php");
+}
 
 $query = $source->Query("Select * FROM user where id=?", [$_GET['id']]);
 $profile = $source->singleRow();
