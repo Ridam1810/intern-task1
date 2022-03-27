@@ -28,7 +28,7 @@ class UserValidation{
     }
     else {
       $val=trim($this-> data['name']);
-      if (!preg_match('/^[a-zA-Z]{3,20}$/', $val)){
+      if (!preg_match('/^[a-zA-Z ]{3,20}$/', $val)){
     $this->addError('name','Name must have 3-20 chars & alphanumrics');
     }
     }
@@ -55,7 +55,7 @@ class UserValidation{
       }
       else {
         $val=trim($this-> data['address']);
-        if (!preg_match('/^[a-zA-Z]{8,20}$/', $val)){
+        if (!preg_match('/^[a-zA-Z ]{8,100}$/', $val)){
       $this->addError('address','Address must have 8-20 chars & alphanumrics');
       }
       }
