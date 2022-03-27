@@ -39,6 +39,7 @@ include "init.php";
                         <th class="col-1">Gender</th>
                         <th class="col-1">Address</th>
                         <th class="col-1">Tech</th>
+                        <th class="col-1">Action</th>
                         
                     </tr>
                 </thead>
@@ -59,8 +60,8 @@ include "init.php";
                 <td>" . $row->gender . "</td>
                 <td>" . $row->address . "</td>
                 <td>" . $row->tech . "</td>
-                <td> <a href='edit.php?id=".$row->id."' class='btn btn-outline-info mr-2'>Edit</a> </td>
-                <td> <a href='delete.php?deleteuser=".$row->id."' class='btn btn-outline-danger mr-2'>Delete</a> </td>
+                <td> <a href='edit.php?id=".$row->id."' class='btn-sm btn-outline-info mr-2'>Edit</a> 
+                 <a href='delete.php?deleteuser=".$row->id."' class='.btn-sm btn-outline-danger mr-2'>Delete</a> </td>
                 </tr>";
 
                         endforeach;
