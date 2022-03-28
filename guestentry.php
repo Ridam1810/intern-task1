@@ -1,25 +1,101 @@
+
+<?php
+
+if(!isset($_SESSION)) 
+    { 
+        session_start(); 
+    } 
+    include 'splitfile/navbar.php';
+    include "init.php";
+    if (!isset($_SESSION['username'])) {
+    header("Location: login.php");
+  }
+    
+
+
+if(isset($_POST['submit'])){
+
+
+
+$file = $_FILES['file'];
+
+// print_r($file);
+$fileName = $_FILES['file']['name'];
+
+
+
+$fileTmpName = $_FILES['file']['tmp_name'];
+$fileSize = $_FILES['file']['size'];
+$fileError = $_FILES['file']['error'];
+$fileType = $_FILES['file']['type'];
+
+$fileExt = explode('.', $fileName);
+$fileActualExt = strtolower(end($fileExt)); 
+$allowed=array('jpg','jpeg','png','pdf');
+
+if(in_array($fileActualExt, $allowed)){
+    if($fileError === 0){
+        if ($fileSize < 1000000) {
+            $fileNameNew = uniqid('', true).".". $fileActualExt;
+            $fileDestination = 'Uploads/'. $fileNameNew;
+            move_uploaded_file($fileTmpName, $fileDestination);
+            
+            //header("Location: guestentry.php");
+            
+
+
+        }else{
+
+            echo"File is too big!";
+        }
+
+
+    }else{
+
+        echo"There was one error uploading your file!";
+
+    }
+
+
+
+}else{
+
+    echo "You cannot upload this type of flies!";
+
+}
+}
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<?php include 'splitfile/navbar.php' ?>
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
+    <!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
     <title>Document</title>
 </head>
 <body><div class="container">
+
+
+
+<form action="" method="POST" enctype="multipart/form-data"> 
 
 <div class="row">
     <div class="col-sm-2" ></div>
     <div class="col-sm-8"></div>
     <div class="col-sm-2" ></div>
+    <div class="col-md-12" ></div>
   </div>
 
   <div class="row">
   <div class="col">
-<div class="form-floating mb-3">
+<div class="col-md-12" class="form-floating mb-3">
   <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
   <label for="floatingInput">Email address</label>
 </div>
@@ -55,23 +131,33 @@
     <h1>lau</h1>
   </div>
 
+  
+
 
 <div class="mb-3">
-  <label for="formFileSm" class="form-label">Small file input example</label>
-  <input class="form-control form-control-sm" id="formFileSm" type="file">
-</div>
-
-
-
-
-<div class="form-check">
   <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
   <label class="form-check-label" for="flexCheckDefault"> Agreed to <a href="t&c.html">
   Terms and Conditions  </label>
 </div>
 </div>
 </div>
+        <!-- <input type="file" name="file">
+        <button type="submit" name="submit">UPLOAD</button> -->
+
+        
+        
+        <div class="mb-3"></div>
+  <label for="formFileSm" class="form-label"></label>
+  <input class="form-control form-control-sm" id="formFileSm" type="file" name="file">
 </div>
+
+<!-- <button  type="submit" name="submit" class="btn btn-outline-primary">UPLOAD</button> -->
+<div class="signupbtn">
+              <input type="submit" name="submit" value="Submit" class="btn btn-outline-primary">
+            </div>
+
+    </form>
+    </div>
 
 <!-- 
 <p class="login-register-text">Don't have an account? <a href="register.php">Register Here</a>.</p> -->

@@ -101,7 +101,22 @@
             </div>
             <div class="navbar-nav ms-auto">
                 <a href="./index1.php" class="nav-item nav-link">Register</a>
-                <a href="#" class="nav-item nav-link">Login</a>
+                <?php
+                if (isset($_SESSION['username'])) {
+                ?>
+                  <a href="./logout.php" class="nav-item nav-link">Logout</a>
+                <?php
+                }else{
+                  ?>
+
+                  <a href="./login.php" class="nav-item nav-link">Login</a>
+                  <?php
+                }
+                
+                ?>
+
+
+                
             </div>
         </div>
     </div>

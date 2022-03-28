@@ -43,7 +43,7 @@ include "init.php";
 // error_reporting(0);
 
 if (isset($_SESSION['username'])) {
-    header("Location: index1.php");
+    header("Location: dashboard.php");
 }
 
 if (isset($_POST['submit'])) {
@@ -62,7 +62,7 @@ if (isset($_POST['submit'])) {
 	
 		$_SESSION['username'] = $result->username;
 		// echo $result['username'];exit();
-		header("Location: index1.php");
+		header("Location: dashboard.php");
 
 	} else {
 		echo "<script>alert('Woops! Email or Password is Wrong.')</script>";
@@ -82,7 +82,7 @@ if (isset($_POST['submit'])) {
 
 	<link rel="stylesheet" type="text/css" href="style.css">
 
-	<title>Login Form - Pure Coding</title>
+	<title>Login Form </title>
 </head>
 <body>
 	<div class="container">
