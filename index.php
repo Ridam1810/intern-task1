@@ -1,4 +1,4 @@
 <?Php 
 
-   header("Location: dashboard.php");
+   header("Location: login.php");
 ?>

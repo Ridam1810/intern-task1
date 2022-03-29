@@ -3,9 +3,9 @@
 include "init.php";
 include "validation.php";
 
-if (!isset($_SESSION['username'])) {
-  header("Location: login.php");
-}
+// if (!isset($_SESSION['username'])) {
+//   header("Location: login.php");
+// }
 
 // error_reporting(0);
 
