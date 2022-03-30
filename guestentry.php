@@ -13,183 +13,210 @@ if(!isset($_SESSION))
     
 
 
-if(isset($_POST['submit'])){
+
+
+//  exit();
+
+// include "validation.php";
+
+// if (!isset($_SESSION['username'])) {
+//   header("Location: login.php");
+// }
+
+if (isset($_POST['submit'])) {
 
 
 
-$file = $_FILES['file'];
+//   // $chk = '';
+//   $valid= new UserValidation($_POST);
+// $errors =$valid-> validateForm();
 
-// print_r($file);
-$fileName = $_FILES['file']['name'];
+// print_r ($errors);
+// die('hello');
+  // if($errors){
+  //   $old_name=$_POST['name'];
+  //   $old_email=$_POST['email'];
+  //   $old_address=$_POST['address'];
+  //   $old_gender=$_POST['gender'];
+    
+    //print_r($errors);
+  // }else{
+    $file = $_FILES['file'];
 
-
-
-$fileTmpName = $_FILES['file']['tmp_name'];
-$fileSize = $_FILES['file']['size'];
-$fileError = $_FILES['file']['error'];
-$fileType = $_FILES['file']['type'];
-
-$fileExt = explode('.', $fileName);
-$fileActualExt = strtolower(end($fileExt)); 
-$allowed=array('jpg','jpeg','png','pdf');
-
-if(in_array($fileActualExt, $allowed)){
-    if($fileError === 0){
-        if ($fileSize < 1000000) {
-            $fileNameNew = uniqid('', true).".". $fileActualExt;
-            $fileDestination = 'Uploads/'. $fileNameNew;
-            move_uploaded_file($fileTmpName, $fileDestination);
-            
-            //header("Location: guestentry.php");
-            
-
-
+    // print_r($file);
+    $fileName = $_FILES['file']['name'];
+    
+    
+    
+    $fileTmpName = $_FILES['file']['tmp_name'];
+    $fileSize = $_FILES['file']['size'];
+    $fileError = $_FILES['file']['error'];
+    $fileType = $_FILES['file']['type'];
+    
+    $fileExt = explode('.', $fileName);
+    $fileActualExt = strtolower(end($fileExt)); 
+    $allowed=array('jpg','jpeg','png','pdf');
+    
+    if(in_array($fileActualExt, $allowed)){
+        if($fileError === 0){
+            if ($fileSize < 1000000) {
+                $fileNameNew = uniqid('', true).".". $fileActualExt;
+                $fileDestination = 'Uploads/'. $fileNameNew;
+                move_uploaded_file($fileTmpName, $fileDestination);
+                
+                //header("Location: guestentry.php");
+                
+    
+    
+            }else{
+    
+                echo"File is too big!";
+            }
+    
+    
         }else{
-
-            echo"File is too big!";
+    
+            echo"There was one error uploading your file!";
+    
         }
-
-
+    
+    
+    
     }else{
-
-        echo"There was one error uploading your file!";
-
+    
+        echo "You cannot upload this type of flies!";
+    
     }
+    
+    
 
 
 
-}else{
+    $data = [
+      'fullname' => $_POST['fullname'],
+      'email' => $_POST['email'],
+      'phone' => $_POST['phone'],
+      'address' => $_POST['address'],
+      'ptype' => $_POST['ptype'],
+      'file' => $_POST[$fileNameNew],
+      'message' => $_POST['message'],
+    ];
 
-    echo "You cannot upload this type of flies!";
 
-}
-}
+    // print_r($data);
+    // die('lau');
+
+  
+
+    // foreach ($data['tech'] as $chk1) {
+    //   $chk .= $chk1 . ",";
+    // }
+      if ($source->Query(
+        "INSERT INTO `guest` (fullname,email,phone,address,ptype,file,message) VALUES (?,?,?,?,?,?,?)",
+        [$data['fullname'], $data['email'],$data['phone'],$data['address'],$data['ptype'],$data['file'],$data['message']]
+      )) 
+      {
+
+
+      }
+    }
+      
+
+
+
 
 ?>
-
 
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
-    <title>Document</title>
-</head>
-<body><div class="container">
-
-
-
-<form action="" method="POST" enctype="multipart/form-data"> 
-
-<div class="row">
-    <div class="col-sm-2" ></div>
-    <div class="col-sm-8"></div>
-    <div class="col-sm-2" ></div>
-    <div class="col-md-12" ></div>
-  </div>
-
-  <div class="row">
-  <div class="col">
-<div  class="form-floating mb-3">
-  <input type="name" class="form-control" id="floatingInput" placeholder="Name">
-  <label for="floatingInput">Name</label>
-</div>
-
-<div  class="form-floating mb-3">
-  <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-  <label for="floatingInput">Email address</label>
-</div>
-
-<div  class="form-floating mb-3">
-  <input type="address" class="form-control" id="floatingInput" placeholder="Address">
-  <label for="floatingInput">Address</label>
-</div>
-
-<div  class="form-floating mb-3">
-  <input type="phone" class="form-control" id="floatingInput" placeholder="phone">
-  <label for="floatingInput">Phone Number</label>
-</div>
-
-
-<!-- <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href=" " role="button" aria-expanded="false">Dropdown</a>
-    <ul class="dropdown-menu">
-      <li><a class="dropdown-item" href="#">Action</a></li>
-      <li><a class="dropdown-item" href="#">Another action</a></li>
-      <li><a class="dropdown-item" href="#">Something else here</a></li>
-      <li><hr class="dropdown-divider"></li>
-      <li><a class="dropdown-item" href="#">Separated link</a></li>
-    </ul>
-  </li> -->
-
-
-
-
-
-  <div class="input-group mb-3">
-  <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</button>
-  <ul class="dropdown-menu">
-    <li><a class="dropdown-item" href="#">Gastroenterologists</a></li>
-    <li><a class="dropdown-item" href="#">Geriatric Medicine Specialists</a></li>
-    <li><a class="dropdown-item" href="#">Hematologists</a></li>
-    <li><a class="dropdown-item" href="#">Hospice and Palliative Medicine Specialists</a></li>
-    <li><a class="dropdown-item" href="#">Infectious Disease Specialists</a></li>
-    <li><a class="dropdown-item" href="#">Internists</a></li>
-    <li><a class="dropdown-item" href="#">Medical Geneticists</a></li>
-    <li><a class="dropdown-item" href="#">Nephrologists</a></li>
-    <li><a class="dropdown-item" href="#">Neurologists</a></li>
-    <li><a class="dropdown-item" href="#">Obstetricians and Gynecologists</a></li>
-    <li><a class="dropdown-item" href="#">Oncologists</a></li>
-    <li><a class="dropdown-item" href="#">Ophthalmologists</a></li>
-    <li><a class="dropdown-item" href="#">Pathologists</a></li>
-    <li><a class="dropdown-item" href="#">Pediatricians</a></li>
-    <li><a class="dropdown-item" href="#">Physiatrists</a></li>
-    <li><a class="dropdown-item" href="#">Pulmonologists</a></li>
-  </ul>
-  <input type="text" class="form-control" aria-label="Text input with dropdown button">
-</div>
-
-
-  <div class="mb-3">
-    <h1>lau</h1>
-  </div>
-
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="style1.css">
   
+  <title>Document</title>
+</head>
+<body>
+<!-- <?php
+//include 'splitfile/navbar.php' 
+?> -->
 
+<div class="container">
+  
+  <h1>Patient Details</h1>
 
-<div class="mb-3">
-  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-  <label class="form-check-label" for="flexCheckDefault"> Agreed to <a href="t&c.html">
-  Terms and Conditions  </label>
-</div>
-</div>
-</div>
-        <!-- <input type="file" name="file">
-        <button type="submit" name="submit">UPLOAD</button> -->
+  <form action="" method="post" enctype="multipart/form-data">
 
-        
-        
-        <div class="mb-3"></div>
-  <label for="formFileSm" class="form-label"></label>
-  <input class="form-control form-control-sm" id="formFileSm" type="file" name="file">
-</div>
+    <div class="fdl">
 
-<!-- <button  type="submit" name="submit" class="btn btn-outline-primary">UPLOAD</button> -->
-<div class="signupbtn">
-              <input type="submit" name="submit" value="Submit" class="btn btn-outline-primary">
-            </div>
+      <label for="name">Full Name</label>
+      <input id="name" name="fullname" type="text" placeholder="Alex Hunter">
 
-    </form>
+      <label for="phone">Phone</label>
+      <input id="phone" name="phone" type="tel" placeholder="+880-1787-748377">
+      
+
     </div>
+      
+    <div class="fdr">
 
-<!-- 
-<p class="login-register-text">Don't have an account? <a href="register.php">Register Here</a>.</p> -->
+      <label for="email">Email</label>
+      <input id="email" name="email" type="email" placeholder="alex.hunter@email.com">
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+      <label for="address">Address</label>
+      <input id="address" name="address" type="text" placeholder="Street">
+
+      <label for="formFileSm" class="form-label"></label>
+      <input class="form-control form-control-sm" id="file" name="file" type="file">
+
+    </div>
+    
+
+    
+
+
+
+    
+
+    <label for="speciality">Choose A speciality</label>
+    <select name="ptype" id="speciality" >
+      <option value="Allergy and Immunology">Allergy and Immunology</option>
+      <option value="Anesthesiology">Anesthesiology</option>
+      <option value="Dermatology">Dermatology</option>
+      <option value="Diagnostic radiology">Diagnostic radiology</option>
+      <option value="Emergency medicine">Emergency medicine</option>
+      <option value="Family medicine">Family medicine</option>
+      <option value="Internal medicine">Internal medicine</option>
+      <option value="Medical genetics">Medical genetics</option>
+      <option value="Neurology">Neurology</option>
+      <option value="Nuclear medicine">Nuclear medicine</option>
+      <option value="Obstetrics and gynecology">Obstetrics and gynecology</option>
+      <option value="Ophthalmology">Ophthalmology</option>
+      <option value="Pathology">Pathology</option>
+      <option value="Pediatrics">Pediatrics</option>
+      <option value="Physical medicine and Rehabilitation">Physical medicine and Rehabilitation</option>
+      <option value="Preventive medicine">Preventive medicine</option>
+      <option value="Psychiatry">Psychiatry</option>
+      <option value="Urology">Urology</option>
+    </select>
+
+    <label for="message">Message</label>
+    <textarea name="message" id="message" cols="30" rows="4" placeholder="Write down your messages here"></textarea>
+
+    <br>
+    <label for="checkbox" id="cbtext"><input type="checkbox" id="checkbox">I agree to the  <a href="t&c.html">terms of service</a> and  <a href="t&c.html">privacy policy</a> .</label>
+
+    <!-- <button id="submit" type="submit" name="submit" value="submit">Submit</button> -->
+    <div class="signupbtn">
+              <input type="submit" name="submit" value="submit" class="btn btn-outline-primary">
+            </div>
+  </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>
+
