@@ -4,11 +4,9 @@
 if(!isset($_SESSION)) 
     { 
         session_start(); 
-        
     } 
     include 'splitfile/navbar.php';
     include "init.php";
-    $_SESSION['is_condition'] = false;
     if (!isset($_SESSION['username'])) {
     header("Location: login.php");
   }
@@ -48,8 +46,7 @@ if (isset($_POST['submit'])) {
     // print_r($file);
     $fileName = $_FILES['file']['name'];
     
-    // echo $fileName;
-    // die('lau');
+    
     
     $fileTmpName = $_FILES['file']['tmp_name'];
     $fileSize = $_FILES['file']['size'];
@@ -93,7 +90,7 @@ if (isset($_POST['submit'])) {
     
     
 
-  
+
 
     $data = [
       'fullname' => $_POST['fullname'],
@@ -101,17 +98,19 @@ if (isset($_POST['submit'])) {
       'phone' => $_POST['phone'],
       'address' => $_POST['address'],
       'ptype' => $_POST['ptype'],
-      'file' => $fileNameNew,
-      //'file' => 'abc.jpg',
+      'file' => $_POST[$fileNameNew],
       'message' => $_POST['message'],
     ];
 
 
+    // print_r($data);
+    // die('lau');
+
   
 
-    // // foreach ($data['tech'] as $chk1) {
-    // //   $chk .= $chk1 . ",";
-    // // }
+    // foreach ($data['tech'] as $chk1) {
+    //   $chk .= $chk1 . ",";
+    // }
       if ($source->Query(
         "INSERT INTO `guest` (fullname,email,phone,address,ptype,file,message) VALUES (?,?,?,?,?,?,?)",
         [$data['fullname'], $data['email'],$data['phone'],$data['address'],$data['ptype'],$data['file'],$data['message']]

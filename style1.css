@@ -2,23 +2,19 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
 body {
-  width: 100%;
-  background-color: #86c5e2;
-
+  background-color: #66b4c7;
+  
 }
 
 
 .container {
   width: 930px;
-  background-color: rgb(241, 230, 215);
-  margin: auto;
+  margin:  0px auto;
   padding: 50px;
   background-color: #FFFFFF;
   overflow: hidden;
@@ -68,11 +64,11 @@ label{
   padding-bottom: 12px;
 }
 a {
-  color: #4267B2;
+  color: #9478e0;
 }
 
 input:focus {
-  outline: 2px solid #4267B2;
+  outline: 2px solid #9478e0;
 }
 input::placeholder{
   font-style: italic;
@@ -83,7 +79,7 @@ input::placeholder{
   display: ;
   font-size: 14px;
   font-family: 'Roboto', sans-serif;
-  padding: 10px 5px;
+  padding: 9px 14px;
 }
 
 
@@ -122,7 +118,7 @@ input::placeholder{
   padding: 10px;
 }
 #speciality:focus{
-  outline: 2px solid #4267B2;
+  outline: 2px solid #9478e0;
 }
 
 option {
@@ -134,7 +130,7 @@ option {
 #submit {
   font-size: 14px;
   padding: 14px 32px;
-  background-color: #13CE67;
+  background-color: #9478e0;
   color: #fff;
   outline: none;
   display: block;
@@ -147,7 +143,7 @@ option {
 }
 
 #submit:hover{
-  background-color: #4267B2;
+  background-color: #9478e0;
 }
 
 #message {
@@ -168,12 +164,61 @@ option {
 }
 
 #message:focus{
-  outline: 2px solid #4267B2;
+  outline: 2px solid #9478e0;
 }
 
 
-@media only screen and (max-width: 472px) {
-  body {
-    background-color: lightblue;
+@media screen and (min-width: 480px) and (max-width:929px) {
+  .container {
+    width: 460px;
+    padding: 35px;
+  }
+
+  .fdl, .fdr {
+    float: none;
   }
 }
+
+@media screen and (min-width: 391px) and (max-width:479px) {
+  .container {
+    width: 390px;
+    padding: 20px;
+  }
+
+  .fdl, .fdr {
+    float: none;
+  }
+
+  input, #speciality, #message {
+    width: 350px;
+  }
+}
+
+@media  screen and (max-width:390px) {
+  .container{
+    width: 350px;
+    padding: 20px;
+  }
+
+  input{
+    width: 310px;
+  }
+
+  .fdl, .fdr {
+    float: none;
+  }
+
+  #speciality {
+    width: 310px;
+  }
+
+  h1{
+    padding-bottom: 24px;
+    margin-bottom: 24px;
+  }
+
+  #message {
+    width: 310px;
+  }
+}
+
