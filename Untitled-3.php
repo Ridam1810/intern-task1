@@ -87,8 +87,61 @@ if (isset($_POST['submit'])) {
     //     echo "You cannot upload this type of flies!";
     
     // }
-    echo $_POST['file'];exit();
+    //echo $_POST['email'];exit();
     
+
+
+
+    $file = $_FILES['file'];
+
+    // print_r($file);
+    $fileName = $_FILES['file']['name'];
+    
+    
+    
+    $fileTmpName = $_FILES['file']['tmp_name'];
+    $fileSize = $_FILES['file']['size'];
+    $fileError = $_FILES['file']['error'];
+    $fileType = $_FILES['file']['type'];
+    
+    $fileExt = explode('.', $fileName);
+    $fileActualExt = strtolower(end($fileExt)); 
+    $allowed=array('jpg','jpeg','png','pdf');
+
+
+
+
+    if(in_array($fileActualExt, $allowed)){
+      if($fileError === 0){
+          if ($fileSize < 1000000) {
+              $fileNameNew = uniqid('', true).".". $fileActualExt;
+              //$fileDestination = 'Uploads/'. $fileNameNew;
+              //move_uploaded_file($fileTmpName, $fileDestination);
+              
+              //header("Location: guestentry.php");
+              
+  
+  
+          }else{
+  
+              echo"File is too big!";
+          }
+  
+  
+      }else{
+  
+          echo"There was one error uploading your file!";
+  
+      }
+  
+  
+  
+  }else{
+  
+      echo "You cannot upload this type of flies!";
+  
+  }
+  
 
 
 
@@ -98,7 +151,7 @@ if (isset($_POST['submit'])) {
       'phone' => $_POST['phone'],
       'address' => $_POST['address'],
       'ptype' => $_POST['ptype'],
-      'file' => $_POST['file'],
+      'file' => $_POST['fileNameNew'],
       'message' => $_POST['message'],
     ];
 
@@ -136,8 +189,7 @@ if (isset($_POST['submit'])) {
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-  <link rel="stylesheet" href="style/style1.css">
-  <link rel="stylesheet" href="style/css_responsive.css">
+  <link rel="stylesheet" href="style1.css">
   
   <title>Document</title>
 </head>

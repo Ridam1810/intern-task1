@@ -1,3 +1,74 @@
+
+<?php
+
+if(!isset($_SESSION)) 
+    { 
+        session_start(); 
+    } 
+    include 'splitfile/navbar.php';
+    // include "init.php";
+    if (!isset($_SESSION['username'])) {
+    header("Location: login.php");
+  }
+    
+
+
+if(isset($POST['submit'])){
+
+echo"lau hello";
+die('kodu');
+
+$file = $_FILES['file'];
+
+// print_r($file);
+$fileName = $_FILES['file']['name'];
+
+
+
+$fileTmpName = $_FILES['file']['tmp_name'];
+$fileSize = $_FILES['file']['size'];
+$fileError = $_FILES['file']['error'];
+$fileType = $_FILES['file']['type'];
+
+$fileExt = explode('.', $fileName);
+$fileActualExt = strtolower(end($fileExt)); 
+$allowed=array('jpg','jpeg','png','pdf');
+
+if(in_array($fileActualExt, $allowed)){
+    if($fileError === 0){
+        if ($fileSize < 1000000) {
+            $fileNameNew = uniqid('', true).".". $fileActualExt;
+            $fileDestination = 'Uploads/'. $fileNameNew;
+            move_uploaded_file($fileTmpName, $fileDestination);
+            header("Location:  index1.php?uploadsuccess");
+            
+
+
+        }else{
+
+            echo"File is too big!";
+        }
+
+
+    }else{
+
+        echo"There was one error uploading your file!";
+
+    }
+
+
+
+}else{
+
+    echo "You cannot upload this type of flies!";
+
+}
+}
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,12 +77,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <!-- <link rel="stylesheet" type="text/css" href="style/style.css"> -->
-    <link rel="stylesheet" href="style/css_responsive.css">
+
     <title>Document</title>
 </head>
-<body>
-  <div class="container">
+<body><div class="container">
 
 
 
@@ -21,30 +90,15 @@
     <div class="col-sm-2" ></div>
     <div class="col-sm-8"></div>
     <div class="col-sm-2" ></div>
-    <div class="col-md-12" ></div>
   </div>
 
   <div class="row">
   <div class="col">
-<div  class="form-floating mb-3">
-  <input type="name" class="form-control" id="floatingInput" placeholder="Name">
-  <label for="floatingInput">Name</label>
-</div>
-
-<div  class="form-floating mb-3">
+<div class="form-floating mb-3">
   <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
   <label for="floatingInput">Email address</label>
 </div>
 
-<div  class="form-floating mb-3">
-  <input type="address" class="form-control" id="floatingInput" placeholder="Address">
-  <label for="floatingInput">Address</label>
-</div>
-
-<div  class="form-floating mb-3">
-  <input type="phone" class="form-control" id="floatingInput" placeholder="phone">
-  <label for="floatingInput">Phone Number</label>
-</div>
 
 
 <!-- <li class="nav-item dropdown">
@@ -65,22 +119,8 @@
   <div class="input-group mb-3">
   <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</button>
   <ul class="dropdown-menu">
-    <li><a class="dropdown-item" href="#">Gastroenterologists</a></li>
-    <li><a class="dropdown-item" href="#">Geriatric Medicine Specialists</a></li>
-    <li><a class="dropdown-item" href="#">Hematologists</a></li>
-    <li><a class="dropdown-item" href="#">Hospice and Palliative Medicine Specialists</a></li>
-    <li><a class="dropdown-item" href="#">Infectious Disease Specialists</a></li>
-    <li><a class="dropdown-item" href="#">Internists</a></li>
-    <li><a class="dropdown-item" href="#">Medical Geneticists</a></li>
-    <li><a class="dropdown-item" href="#">Nephrologists</a></li>
-    <li><a class="dropdown-item" href="#">Neurologists</a></li>
-    <li><a class="dropdown-item" href="#">Obstetricians and Gynecologists</a></li>
-    <li><a class="dropdown-item" href="#">Oncologists</a></li>
-    <li><a class="dropdown-item" href="#">Ophthalmologists</a></li>
-    <li><a class="dropdown-item" href="#">Pathologists</a></li>
-    <li><a class="dropdown-item" href="#">Pediatricians</a></li>
-    <li><a class="dropdown-item" href="#">Physiatrists</a></li>
-    <li><a class="dropdown-item" href="#">Pulmonologists</a></li>
+    <li><a class="dropdown-item" href="#">Action</a></li>
+    <li><a class="dropdown-item" href="#">Another action</a></li>
   </ul>
   <input type="text" class="form-control" aria-label="Text input with dropdown button">
 </div>
