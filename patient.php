@@ -41,6 +41,7 @@ include "init.php";
                         <th class="col-1">Problem type</th>
                         <th class="col-1">message</th>
                         <th class="col-1">picture</th>
+                        <th class="col-1">Action</th>
                         
                     </tr>
                 </thead>
@@ -53,25 +54,27 @@ include "init.php";
                     if ($numrow > 0) {
                         foreach ($details as $row) :
 
-                            echo "
+                    ?>
                 <tr>
-                <td>" . $row->id . "</td>
-                <td>" . $row->fullname . "</td>
-                <td>" . $row->email . "</td>
-                <td>" . $row->phone . "</td>
-                <td>" . $row->address . "</td>
-                <td>" . $row->ptype . "</td>
-                <td>" . $row->message . "</td>
-                <td>" . $row->file . "</td>
+                <td><?php echo $row->id; ?></td>
+                <td><?php echo $row->fullname; ?></td>
+                <td><?php echo $row->email; ?></td>
+                <td><?php echo $row->phone; ?></td>
+                <td><?php echo $row->address; ?></td>
+                <td><?php echo $row->ptype; ?></td>
+                <td><?php echo $row->message; ?></td>
+                <td><img src="Uploads/<?php echo $row->file; ?>" height = 100px width = 80px></td>
+  
 
 
                 
 
 
-
-                <td>  
+<?php echo"<td>  
                  <a href='deleteguest.php?deleteuser=".$row->id."' class='.btn-sm btn-outline-danger mr-2'>Delete</a> </td>
-                </tr>";
+                </tr>";?>
+                
+                    <?php
 
                         endforeach;
                     }

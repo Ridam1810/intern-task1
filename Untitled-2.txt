@@ -3,3 +3,30 @@ Name: <input type="text" name="name"><br>
 E-mail: <input type="text" name="email"><br>
 <input type="submit">
 </form>
+
+
+
+    $file = $_FILES['file'];
+
+    // print_r($file);
+    $fileName = $_FILES['file']['name'];
+    
+    // echo $fileName;
+    // die('lau');
+    
+    $fileTmpName = $_FILES['file']['tmp_name'];
+    $fileSize = $_FILES['file']['size'];
+    $fileError = $_FILES['file']['error'];
+    $fileType = $_FILES['file']['type'];
+    
+    $fileExt = explode('.', $fileName);
+    $fileActualExt = strtolower(end($fileExt)); 
+    $allowed=array('jpg','jpeg','png','pdf');
+    
+    if(in_array($fileActualExt, $allowed)){
+        if($fileError === 0){
+            if ($fileSize < 1000000) {
+                $fileNameNew = uniqid('', true).".". $fileActualExt;
+                $fileDestination = 'Uploads/'. $fileNameNew;
+                move_uploaded_file($fileTmpName, $fileDestination);
+                

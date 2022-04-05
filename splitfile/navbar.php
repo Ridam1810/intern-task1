@@ -97,6 +97,8 @@
                 
                 <a href="./guestentry.php" class="nav-item nav-link">Services</a>
                 <a href="./list.php" class="nav-item nav-link">Employees</a>
+                <a href="./patient.php" class="nav-item nav-link">Patients</a>
+
                 <a href="./index1.php" class="nav-item nav-link">Register</a>
                 <a href="./about.html" class="nav-item nav-link">About</a>
                 <a href="./contact.html" class="nav-item nav-link">Contact</a>
