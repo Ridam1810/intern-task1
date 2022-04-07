@@ -120,8 +120,21 @@ if (isset($_POST['submit'])) {
   $_SESSION['filename'] = $fileNameNew;
   if (mail($to, $subject, $message, $headers)) {
     // header("Location: patient_confirmation.php");
+
+
+    echo "
+            <script type=\"text/javascript\">
+            window.location.href = 'patient_confirmation.php';
+            </script>
+        ";
+    //echo RedirectURL('patient_confirmation.php');
   } else {
     // header("Location: error.php");
+    echo "
+            <script type=\"text/javascript\">
+            window.location.href = 'error.php';
+            </script>
+        ";
   }
 }
 

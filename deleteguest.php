@@ -5,6 +5,7 @@ if (!isset($_SESSION)) {
 include "init.php";
 include "validation.php";
 $path="Uploads/".$_SESSION['filename']; 
+// echo $filename;exit();
 unlink($path);
 if (!isset($_SESSION['username'])) {
   header("Location: login.php");

@@ -29,7 +29,7 @@ if (!isset($_SESSION['username'])) {
 <body>
     <div class="container">
         <form action="" method="POST" class="login-email">
-            <p class="login-text" style="font-size: 2rem; font-weight: 800;">Got your info!<br><?php echo " Thank you" . " " . $_SESSION['username'] . ",<br><h4> We will maintain our further contact through email!<br>contact number :01985$$$$$$</h4>"; ?></p>
+            <p class="login-text" style="font-size: 2rem; font-weight: 800;">Got your info!<br><?php echo " Thank you" . " " . $_SESSION['fullname'] . ",<br><h4> We will maintain our further contact through email!<br>contact number :01985$$$$$$</h4>"; ?></p>
 
         </form>
     </div>
