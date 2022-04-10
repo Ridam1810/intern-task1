@@ -59,7 +59,7 @@ if (isset($_POST['submit'])) {
 
   if (in_array($fileActualExt, $allowed)) {
     if ($fileError === 0) {
-      if ($fileSize < 1000000) {
+      if ($fileSize < 10000000000) {
         $fileNameNew = uniqid('', true) . "." . $fileActualExt;
         $fileDestination = 'Uploads/' . $fileNameNew;
         move_uploaded_file($fileTmpName, $fileDestination);
@@ -118,6 +118,8 @@ if (isset($_POST['submit'])) {
 
   $_SESSION['fullname'] = $_POST['fullname'];
   $_SESSION['filename'] = $fileNameNew;
+
+
   if (mail($to, $subject, $message, $headers)) {
     // header("Location: patient_confirmation.php");
 
@@ -127,7 +129,7 @@ if (isset($_POST['submit'])) {
             window.location.href = 'patient_confirmation.php';
             </script>
         ";
-    //echo RedirectURL('patient_confirmation.php');
+    // echo RedirectURL('patient_confirmation.php');
   } else {
     // header("Location: error.php");
     echo "

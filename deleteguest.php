@@ -4,8 +4,13 @@ if (!isset($_SESSION)) {
 }
 include "init.php";
 include "validation.php";
-$path="Uploads/".$_SESSION['filename']; 
-// echo $filename;exit();
+
+$query = $source->Query("Select file FROM guest where id=?", [$_GET['deleteuser']]);
+$file_name = $source->singleRow();
+
+
+$path="Uploads/".$file_name->file; 
+//echo $path;exit();
 unlink($path);
 if (!isset($_SESSION['username'])) {
   header("Location: login.php");
@@ -23,7 +28,3 @@ if($query){
     header("location:patient.php");
 }
 }
-
-
-
-?>

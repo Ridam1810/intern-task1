@@ -16,13 +16,13 @@ include "init.php";
 
 <body>
     <!-- navbar -->
-    <?php 
+    <?php
     include 'splitfile/navbar.php';
 
-    if(!empty($_SESSION['delete_user'])){
+    if (!empty($_SESSION['delete_user'])) {
         // echo $_SESSION['delete_user'];
     }
-    
+
     ?>
 
 
@@ -42,7 +42,7 @@ include "init.php";
                         <th class="col-1">message</th>
                         <th class="col-1">picture</th>
                         <th class="col-1">Action</th>
-                        
+
                     </tr>
                 </thead>
                 <tbody>
@@ -55,30 +55,30 @@ include "init.php";
                         foreach ($details as $row) :
 
                     ?>
-                <tr>
-                <td><?php echo $row->id; ?></td>
-                <td><?php echo $row->fullname; ?></td>
-                <td><?php echo $row->email; ?></td>
-                <td><?php echo $row->phone; ?></td>
-                <td><?php echo $row->address; ?></td>
-                <td><?php echo $row->ptype; ?></td>
-                <td><?php echo $row->message; ?></td>
-                <td><img src="Uploads/<?php echo $row->file; ?>" height = 100px width = 80px></td>
-  
+                            <tr>
+                                <td><?php echo $row->id; ?></td>
+                                <td><?php echo $row->fullname; ?></td>
+                                <td><?php echo $row->email; ?></td>
+                                <td><?php echo $row->phone; ?></td>
+                                <td><?php echo $row->address; ?></td>
+                                <td><?php echo $row->ptype; ?></td>
+                                <td><?php echo $row->message; ?></td>
+                                <td><img src="Uploads/<?php echo $row->file; ?>" height=100px width=80px></td>
 
 
-                
 
 
-<?php echo"<td>  
-                 <a href='deleteguest.php?deleteuser=".$row->id."' class='.btn-sm btn-outline-danger mr-2'>Delete</a> </td>
-                </tr>";?>
-                
-                    <?php
+
+
+                                <?php echo "<td> 
+                 <a href='deleteguest.php?deleteuser=" . $row->id . "' class='.btn-sm btn-outline-danger mr-2'>Delete</a> </td>
+                </tr>"; ?>
+
+                        <?php
 
                         endforeach;
                     }
-                    ?>
+                        ?>
                 </tbody>
             </table>
         </div>
