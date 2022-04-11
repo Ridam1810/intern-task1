@@ -93,3 +93,60 @@ SMTP=smtp.gmail.com
 smtp_port=587
 sendmail_from = mail@gmail.com
 sendmail_path = "\"C:\xampp\sendmail\sendmail.exe\" -t"
+
+
+
+<div class="login">
+
+          <h5> INDEX PAGE FOR REGISTER EMPLOYEE </h5>
+
+          <div class="inputall">
+            <div class="input">
+              <h4>Full Name</h4>
+              <input type="name" name="name" value="<?php if (isset($old_name)) echo $old_name; ?>">
+              <div class="errors">
+                <?php echo $errors['name'] ?? '' ?>
+              </div>
+            </div>
+            <div class="input">
+              <h4>Email</h4> <input type="email" name="email" value=" <?php if (isset($old_email)) echo $old_email; ?>">
+              <div class="errors">
+                <?php echo $errors['email'] ?? '' ?>
+              </div>
+            </div>
+            <div class="input">
+              <h4>Address</h4> <input type="text" name="address" value="<?php if (isset($old_address)) echo $old_address; ?>">
+              <div class="errors">
+                <?php echo $errors['address'] ?? '' ?>
+              </div>
+            </div>
+
+            <div class="gender">
+              <input type="radio" name="gender" value="male" <?php if (isset($old_gender) && $old_gender == "male") echo ' checked'; ?>> Male
+              <input type="radio" name="gender" value="female" <?php if (isset($old_gender) && $old_gender == "female") echo ' checked'; ?>> Female
+            </div>
+
+            <tr>
+              <td colspan="2">Select techlogy: </td>
+            </tr>
+            <tr>
+              <td>PHP</td>
+              <td><input type="checkbox" name="tech[]" value="PHP"></td>
+            </tr>
+            <tr>
+              <td>.Net</td>
+              <td><input type="checkbox" name="tech[]" value=".Net"></td>
+            </tr>
+            <tr>
+              <td>Java</td>
+              <td><input type="checkbox" name="tech[]" value="Java"></td>
+            </tr>
+            <tr>
+              <td>Javascript</td>
+              <td><input type="checkbox" name="tech[]" value="javascript"></td>
+            </tr>
+            <div class="signupbtn">
+              <input type="submit" name="signup" value="Signup" class="btn btn-outline-primary">
+            </div>
+          </div>
+        </div>

@@ -1,64 +1,95 @@
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-  
-  @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
-  
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
 
 
 
 @media screen and (min-width: 480px) and (max-width:929px) {
-    .container {
-      width: 460px;
-      padding: 35px;
-    }
-  
-    .fdl, .fdr {
-      float: none;
-    }
+  .container {
+    width: 460px;
+    padding: 35px;
   }
-  
-  @media screen and (min-width: 391px) and (max-width:479px) {
-    .container {
-      width: 390px;
-      padding: 20px;
-    }
-  
-    .fdl, .fdr {
-      float: none;
-    }
-  
-    input, #speciality, #message {
-      width: 350px;
-    }
+
+  .fdl,
+  .fdr {
+    float: none;
   }
-  
-  @media  screen and (max-width:390px) {
-    .container{
-      width: 350px;
-      padding: 20px;
-    }
-  
-    input{
-      width: 310px;
-    }
-  
-    .fdl, .fdr {
-      float: none;
-    }
-  
-    #speciality {
-      width: 310px;
-    }
-  
-    h1{
-      padding-bottom: 24px;
-      margin-bottom: 24px;
-    }
-  
-    #message {
-      width: 310px;
-    }
+}
+
+@media screen and (min-width: 391px) and (max-width:479px) {
+  .container {
+    width: 390px;
+    padding: 20px;
   }
+
+  .fdl,
+  .fdr {
+    float: none;
+  }
+
+  input,
+  #speciality,
+  #message {
+    width: 350px;
+  }
+}
+
+@media screen and (max-width:390px) {
+  .container {
+    width: 350px;
+    padding: 20px;
+  }
+
+  input {
+    width: 310px;
+  }
+
+  .fdl,
+  .fdr {
+    float: none;
+  }
+
+  #speciality {
+    width: 310px;
+  }
+
+  h1 {
+    padding-bottom: 24px;
+    margin-bottom: 24px;
+  }
+
+  #message {
+    width: 310px;
+  }
+}
+
+@media screen and (max-width:929px) and (min-width:700px) {
+  .container {
+    width: 700px;
+    padding: 35px;
+  }
+
+  .fdl,
+  .fdr {
+    float: none;
+  }
+}
+
+@media screen and (min-width: 391px) {
+  .rgstrbtn {
+    margin-top: 16px;
+    background-color: 000;
+  }
+}
+
+@media screen and (min-width:930px) {
+  #fdl1 {
+    height: 322px;
+  }
+
+}
