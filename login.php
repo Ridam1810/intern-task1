@@ -29,13 +29,12 @@
 </body>
 </html> -->
 <?php
-    if(!isset($_SESSION)) 
-    { 
-        session_start(); 
-    } 
+if (!isset($_SESSION)) {
+	session_start();
+}
 ?>
 
-<?php 
+<?php
 
 include "init.php";
 
@@ -43,27 +42,30 @@ include "init.php";
 // error_reporting(0);
 
 if (isset($_SESSION['username'])) {
-    header("Location: dashboard.php");
+	header("Location: dashboard.php");
 }
 
 if (isset($_POST['submit'])) {
 	// echo $_POST['password'];exit();
-	
+
 
 	$data = [
 		'email' => $_POST['email'],
-		'password' => sha1($_POST['password']),
-	  ];
+		'password' => $_POST['password'],
+	];
 
-	  $query = $source->Query("Select * FROM users where email='".$data['email']."' AND password='".$data['password']."'");
-	  $result = $source->SingleRow();
+	$query = $source->Query("Select * FROM users where email='" . $data['email'] . "' AND password='" . $data['password'] . "'");
+	$result = $source->SingleRow();
 	//   print_r ($result);exit();
-	if($result){
-	
+	if ($result) {
+
 		$_SESSION['username'] = $result->username;
+		$_SESSION['utype'] = $result->utype;
+
+
+
 		// echo $result['username'];exit();
 		header("Location: dashboard.php");
-
 	} else {
 		echo "<script>alert('Woops! Email or Password is Wrong.')</script>";
 	}
@@ -73,6 +75,7 @@ if (isset($_POST['submit'])) {
 
 <!DOCTYPE html>
 <html>
+
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -85,6 +88,7 @@ if (isset($_POST['submit'])) {
 
 	<title>Login Form </title>
 </head>
+
 <body>
 	<div class="container">
 		<form action="login.php" method="POST" class="login-email">
@@ -99,7 +103,7 @@ if (isset($_POST['submit'])) {
 				<!-- <button name="submit" class="btn">Login <a href="index1.php"></a></button> -->
 				<button type="submit" name="submit" class="btn">Login</button>
 			</div>
-			<p class="login-register-text">Don't have an account? <a href="register.php">Register Here</a>.</p>
+			<p class="login-register-text"><a href="dashboard.php">Enter as Guest</a>.</p>
 		</form>
 	</div>
 
@@ -107,5 +111,5 @@ if (isset($_POST['submit'])) {
 
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
-</html>
 
+</html>

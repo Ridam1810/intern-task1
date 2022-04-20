@@ -1,25 +1,28 @@
 <?php
 
 if (!isset($_SESSION)) {
-    session_start();
+  session_start();
 }
 include 'splitfile/navbar.php';
 include "init.php";
-if (!isset($_SESSION['username'])) {
-    header("Location: login.php");
-}
+// if (!isset($_SESSION['username'])) {
+//     header("Location: login.php");
+// }
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">  <link rel="stylesheet" href="style/style1.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="style/style1.css">
   <title>Medic</title>
 </head>
+
 <body style="background-color: #E8E8E8">
 
 
@@ -29,11 +32,11 @@ if (!isset($_SESSION['username'])) {
       <div class="col1">
         <h2>A range of programs for healthcare</h2>
         <h1>Special Touch</h1>
-        <span >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc et aliquet orci, non posuere 
-        <button>Make an Appointment</button>
-          
+        <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc et aliquet orci, non posuere
+          <button>Make an Appointment</button>
+
       </div>
-      <div class="col2"><img src="./img/doctor.jpg" alt="doctor"  id="homedoc">
+      <div class="col2"><img src="./img/doctor.jpg" alt="doctor" id="homedoc">
       </div>
     </section>
 
@@ -46,22 +49,22 @@ if (!isset($_SESSION['username'])) {
       <p>We offfer complete healthcare to individuals with various health concers.</p>
       <div class="col1">
         <span>Cardiology</span>
-        <p class="hide">Learn more  🡢</p>
+        <p class="hide">Learn more 🡢</p>
       </div>
       <div class="col2">
         <span>CT & X-Ray</span>
-        <p class="hide">Learn more  🡢</p>
+        <p class="hide">Learn more 🡢</p>
       </div>
       <div class="col3">
         <i class="fa-thin fa-tooth"></i>
         <span>Dentistry</span>
-        <p class="hide">Learn more  🡢</p>
+        <p class="hide">Learn more 🡢</p>
       </div>
       <div class="col4">
         <span>Neorological <br>Treatment</span>
-        <p class="hide">Learn more  🡢</p>
+        <p class="hide">Learn more 🡢</p>
       </div>
-      
+
     </section>
 
 
@@ -109,11 +112,11 @@ if (!isset($_SESSION['username'])) {
       <div class="col1">
         <p class="quote">“I just can't say enough good things about the Medical Clinic. I am so happy to be a patient there. It saved my life.”</p>
         <img src="./Uploads/6245855eae9d07.11060690.jpg" alt="" style="object-fit: cover;">
-          <div class="qinfo">
-            <p class="qname">Paul Peterson</p>
-            <br>
-            <p class="tmtitle">Patient</p>
-          </div>
+        <div class="qinfo">
+          <p class="qname">Paul Peterson</p>
+          <br>
+          <p class="tmtitle">Patient</p>
+        </div>
       </div>
 
 
@@ -151,9 +154,10 @@ if (!isset($_SESSION['username'])) {
 
       <div>
 
-        <p style="color: #1480EC;">me</p><p style="color: #043C75;">dic</p>
+        <p style="color: #1480EC;">me</p>
+        <p style="color: #043C75;">dic</p>
       </div>
-      
+
       <ul>
         <li><a href="#">Home</a></li>
         <li><a href="#">About</a></li>
@@ -170,9 +174,10 @@ if (!isset($_SESSION['username'])) {
 
 
   </div>
-  
+
 
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
+
 </html>

@@ -23,8 +23,8 @@
       </div>
     </div>
   </div> -->
-  
-  <!-- <nav class="navbar navbar-expand-lg navbar-blue  bg-dark">
+
+<!-- <nav class="navbar navbar-expand-lg navbar-blue  bg-dark">
     <div class="container-fluid">
     
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -42,17 +42,18 @@
             <a class="nav-link" href="./index.php" class="container-fluid justify-content-start" class="btn btn-outline-success me-2">Add new</a>
           </li>
           <li class="nav-item">
-            <?php  
-            // if(isset($_SESSION['username'])){ ?>
+            <?php
+            // if(isset($_SESSION['username'])){ 
+            ?>
 
 <a class="nav-link" href="./logout.php" class="container-fluid justify-content-start" class="btn btn-outline-success me-2">logout</a>
 
 
-            <?php 
-          // } else { 
+            <?php
+            // } else { 
             ?>
 <a class="nav-link" href="./login.php" class="container-fluid justify-content-start" class="btn btn-outline-success me-2">login</a>
-            <?php 
+            <?php
             // .} 
             ?>
            
@@ -70,63 +71,68 @@
 
 
 
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Bootstrap Fixed Layout Example</title>
-<link rel="stylesheet" href="css/bootstrap.min.css">
-<script src="js/bootstrap.bundle.min.js"></script>
-<link rel="stylesheet" href="style/css_responsive.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bootstrap Fixed Layout Example</title>
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="style/css_responsive.css">
 </head>
+
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-    <div class="header-logo"> <!-- logo-->
-						<a href="./dashboard.php">
-							<!--<img alt="icddr,b" width="100" data-sticky-width="62" data-sticky-height="40" data-sticky-top="33" src="/templates/ICDDRB/images/logo_60_year.png">-->
-							<img alt="icddr,b" width="190" data-sticky-width="82" data-sticky-height="40" data-sticky-top="33" src="img/logo.png">
-						</a>
-					</div>
-        <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-            <div class="navbar-nav">
-                
-                <a href="./guestentry.php" class="nav-item nav-link">Services</a>
-                <a href="./list.php" class="nav-item nav-link">Employees</a>
-                <a href="./patient.php" class="nav-item nav-link">Patients</a>
+      <div class="header-logo">
+        <!-- logo-->
+        <a href="./dashboard.php">
+          <!--<img alt="icddr,b" width="100" data-sticky-width="62" data-sticky-height="40" data-sticky-top="33" src="/templates/ICDDRB/images/logo_60_year.png">-->
+          <img alt="icddr,b" width="190" data-sticky-width="82" data-sticky-height="40" data-sticky-top="33" src="img/logo.png">
+        </a>
+      </div>
+      <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <div class="navbar-nav">
 
-                <a href="./index1.php" class="nav-item nav-link">Register</a>
-                <a href="./about.html" class="nav-item nav-link">About</a>
-                <a href="./contact.html" class="nav-item nav-link">Contact</a>
-                
-            </div>
-            <div class="navbar-nav ms-auto">
-                
-                <?php
-                if (isset($_SESSION['username'])) {
-                ?>
-                  <a href="./logout.php" class="nav-item nav-link">Logout</a>
-                <?php
-                }else{
-                  ?>
-
-                  <a href="./login.php" class="nav-item nav-link">Login</a>
-                  <?php
-                }
-                
-                ?>
+          <a href="./register.php" class="nav-item nav-link">Register Admin</a>
+          <a href="./list.php" class="nav-item nav-link">Employees</a>
+          <a href="./index1.php" class="nav-item nav-link">Register</a>
+          <a href="./guestentry.php" class="nav-item nav-link">Services</a>
+          <a href="./patient.php" class="nav-item nav-link">Patients</a>
 
 
-                
-            </div>
+          <a href="./about.html" class="nav-item nav-link">About</a>
+          <a href="./contact.html" class="nav-item nav-link">Contact</a>
+
         </div>
+        <div class="navbar-nav ms-auto">
+
+          <?php
+          if (isset($_SESSION['username'])) {
+          ?>
+            <a href="./logout.php" class="nav-item nav-link">Logout</a>
+          <?php
+          } else {
+          ?>
+
+            <a href="./login.php" class="nav-item nav-link">Login</a>
+          <?php
+          }
+
+          ?>
+
+
+
+        </div>
+      </div>
     </div>
-</nav>
-<!-- <div class="container">
+  </nav>
+  <!-- <div class="container">
     <div class="p-5 my-4 bg-light rounded-3">
         <h1>Learn to Create Websites</h1>
         <p class="lead">In today's world internet is the most popular way of connecting with the people. At <a href="https://www.tutorialrepublic.com" class="text-success" target="_blank">tutorialrepublic.com</a> you will learn the essential web development technologies along with real life practice examples, so that you can create your own website to connect with the people around the world.</p>
@@ -164,6 +170,5 @@
     </footer>
 </div> -->
 </body>
+
 </html>
-
-
