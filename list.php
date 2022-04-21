@@ -16,13 +16,13 @@ include "init.php";
 
 <body>
     <!-- navbar -->
-    <?php 
+    <?php
     include 'splitfile/navbar.php';
 
-    if(!empty($_SESSION['delete_user'])){
+    if (!empty($_SESSION['delete_user'])) {
         // echo $_SESSION['delete_user'];
     }
-    
+
     ?>
 
 
@@ -35,17 +35,18 @@ include "init.php";
                     <tr>
                         <th class="col-1">ID</th>
                         <th class="col-1">Name</th>
+                        <th class="col-1">SurName</th>
                         <th class="col-1">Email</th>
                         <th class="col-1">Gender</th>
                         <th class="col-1">Address</th>
-                        <th class="col-1">Tech</th>
-                        <th class="col-1">Action</th>
-                        
+                        <th class="col-1">Speciality</th>
+                        <th class="col-1">Picture</th>
+
                     </tr>
                 </thead>
                 <tbody>
                     <?php
-                    $query = $source->Query("SELECT * FROM user");
+                    $query = $source->Query("SELECT * FROM `users` WHERE utype=1");
                     $details = $source->FetchAll();
                     $numrow = $source->CountRows();
 
@@ -56,12 +57,15 @@ include "init.php";
                 <tr>
                 <td>" . $row->id . "</td>
                 <td>" . $row->name . "</td>
+                <td>" . $row->surname . "</td>
                 <td>" . $row->email . "</td>
                 <td>" . $row->gender . "</td>
                 <td>" . $row->address . "</td>
-                <td>" . $row->tech . "</td>
-                <td> <a href='edit.php?id=".$row->id."' class='btn-sm btn-outline-info mr-2'>Edit</a> 
-                 <a href='delete.php?deleteuser=".$row->id."' class='.btn-sm btn-outline-danger mr-2'>Delete</a> </td>
+                <td>" . $row->ptype . "</td>
+                <td>" . $row->file . "</td>
+                
+                <td> <a href='edit.php?id=" . $row->id . "' class='btn-sm btn-outline-info mr-2'>Edit</a> 
+                 <a href='delete.php?deleteuser=" . $row->id . "' class='.btn-sm btn-outline-danger mr-2'>Delete</a> </td>
                 </tr>";
 
                         endforeach;

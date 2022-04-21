@@ -116,7 +116,7 @@ if (isset($_POST['submit'])) {
   $message = "Name :" . $_POST['fullname'] . "\n" . "Phone :" . $_POST['phone'] . "\n" . "Address :" . $_POST['address'] . "\n" . "Problem Type :" . $_POST['ptype'] . "\n" . "\n" . "Wrote the following :" . "\n\n" . $_POST['message'];
   $headers = "From: " . "rithyamforbe@gmail.com";
 
-  $_SESSION['fullname'] = $_POST['fullname'];
+  $_SESSION['regname'] = $_POST['fullname'];
   $_SESSION['filename'] = $fileNameNew;
 
 

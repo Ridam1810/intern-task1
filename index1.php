@@ -8,41 +8,77 @@ if (!isset($_SESSION['username'])) {
   header("Location: login.php");
 }
 
-if (isset($_POST['signup'])) {
-  $chk = '';
-  $valid = new UserValidation($_POST);
-  $errors = $valid->validateForm();
+if (isset($_POST['submit'])) {
+  
+    $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+	$generator = substr(str_shuffle($chars), 0, 8);
 
-  // print_r ($errors);
-  // die('hello');
-  if ($errors) {
-    $old_name = $_POST['name'];
-    $old_email = $_POST['email'];
-    $old_address = $_POST['address'];
-    $old_gender = $_POST['gender'];
 
-    //print_r($errors);
+
+  $file = $_FILES['file'];
+
+  // print_r($file);
+  $fileName = $_FILES['file']['name'];
+  $fileTmpName = $_FILES['file']['tmp_name'];
+  $fileSize = $_FILES['file']['size'];
+  $fileError = $_FILES['file']['error'];
+  $fileType = $_FILES['file']['type'];
+
+  $fileExt = explode('.', $fileName);
+  $fileActualExt = strtolower(end($fileExt));
+  $allowed = array('jpg', 'jpeg', 'png', 'pdf');
+
+  if (in_array($fileActualExt, $allowed)) {
+    if ($fileError === 0) {
+      if ($fileSize < 10000000000) {
+        $fileNameNew = uniqid('', true) . "." . $fileActualExt;
+        $fileDestination = 'Uploads/' . $fileNameNew;
+        move_uploaded_file($fileTmpName, $fileDestination);
+
+        //header("Location: guestentry.php");
+
+
+
+      } else {
+
+        echo "File is too big!";
+      }
+    } else {
+
+      echo "There was one error uploading your file!";
+    }
   } else {
+
+    echo "You cannot upload this type of flies!";
+  }
+
+
     $data = [
       'name' => $_POST['name'],
+      'surname' => $_POST['surname'],
+      'date' => $_POST['date'],
+      'ptype' => $_POST['ptype'],
+      'file' => $fileNameNew,
       'email' => $_POST['email'],
       'address' => $_POST['address'],
       'gender' => $_POST['gender'],
-      'tech' => $_POST['tech'],
+      'password' => 	$generator,
+      'utype' => $_POST['utype']
+      
     ];
 
 
 
-    foreach ($data['tech'] as $chk1) {
-      $chk .= $chk1 . ",";
-    }
+    // foreach ($data['tech'] as $chk1) {
+    //   $chk .= $chk1 . ",";
+    // }
     if ($source->Query(
-      "INSERT INTO `user` (name,email,gender,address,tech) VALUES (?,?,?,?,?)",
-      [$data['name'], $data['email'], $data['gender'], $data['address'], $chk]
+      "INSERT INTO `users` (name,surname,date,ptype,file,email,gender,address,password,utype) VALUES (?,?,?,?,?,?,?,?,?,?)",
+      [$data['name'], $data['surname'], $data['ptype'], $data['file'], $data['date'], $data['address'], $data['email'], $data['gender'], $data['password'], $data['utype']]
     )) {
     }
   }
-}
+
 ?>
 
 
@@ -63,10 +99,11 @@ if (isset($_POST['signup'])) {
   <!-- navbar -->
   <?php include 'splitfile/navbar.php' ?>
 
-
+	
 
   <div class="container-fluid">
     <div class="container">
+    <h1>Employee Registration</h1>
       <form action="" method="POST" enctype="multipart/form-data">
         <div class="fdl" id="fdl1">
 
@@ -87,8 +124,8 @@ if (isset($_POST['signup'])) {
         </div>
 
         <div class="fdr">
-          <input type="email" placeholder="email address">
-          <input type="text" placeholder="Address">
+          <input type="email" name="email" placeholder="email address">
+          <input type="text" name="address" placeholder="Address">
           <label for="speciality">Choose A speciality</label>
           <select name="ptype" id="speciality">
             <option value="Allergy and Immunology">Allergy and Immunology</option>
@@ -113,10 +150,10 @@ if (isset($_POST['signup'])) {
 
           <label for="formFileSm" class="form-label">Upload a photo</label>
           <input class="form-control form-control-sm" id="file" name="file" type="file">
-
+          <input type="hidden" name="utype" value="1">
         </div>
         <div class="signupbtn">
-          <input type="submit" name="signup" value="Signup" class="btn btn-outline-primary">
+          <input type="submit" name="submit" value="submit" class="btn btn-outline-primary">
         </div>
       </form>
     </div>

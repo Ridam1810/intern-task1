@@ -1,7 +1,10 @@
 <?php
-
+if (!isset($_SESSION)) {
+	session_start();
+}
+include 'splitfile/navbar.php';
 include "init.php";
-include "validation.php";
+// include "validation.php";
 
 // if (!isset($_SESSION['username'])) {
 //   header("Location: login.php");
@@ -18,8 +21,8 @@ include "validation.php";
 
 if (isset($_POST['submit'])) {
 
-	$chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&*_";
-$generator = substr( str_shuffle( $chars ), 0, 8 );
+	$chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+	$generator = substr(str_shuffle($chars), 0, 8);
 
 	$data = [
 		'username' => $_POST['username'],
@@ -29,8 +32,6 @@ $generator = substr( str_shuffle( $chars ), 0, 8 );
 		// 'cpassword' => sha1($_POST['cpassword'])
 
 	];
-
-
 
 	// if ($data['password'] == $data['cpassword']) {
 
@@ -44,69 +45,93 @@ $generator = substr( str_shuffle( $chars ), 0, 8 );
 
 		if ($source->Query(
 			"INSERT INTO `users` (username,email,password,utype) VALUES (?,?,?,?)",
-			[$data['username'], $data['email'], $data['password'],$data['utype']]
+			[$data['username'], $data['email'], $data['password'], $data['utype']]
 		)) {
-			echo "<script>alert('Wow! User Registration Completed.')</script>";
-			// $username = "";
-			// $email = "";
-			// $_POST['password'] = "";
-			// $_POST['cpassword'] = "";
+			// echo "<script>alert('Wow! User Registration Completed.')</script>";
+			// // $username = "";
+			// // $email = "";
+			// // $_POST['password'] = "";
+			// // $_POST['cpassword'] = "";
 		} else {
 			echo "<script>alert('Woops! Something Wrong Went.')</script>";
 		}
 	} else {
 		echo "<script>alert('Woops! Email Already Exists.')</script>";
 	}
+	$to = $_POST['email']; // Receiver Email ID, Replace with your email ID
+	$subject = "Confirmation";
+	$message = "Your Account created succesfully as admin!" . "\n" . "Login information down below." . "\n" . "UserName :" . $_POST['username'] . "\n" . "Email :" . $_POST['email'] . "\n" . "Password :" . $data['password'];
+	$headers = "From: " . "rithyamforbe@gmail.com";
+	$_SESSION['regname'] = $_POST['username'];
+	if (mail($to, $subject, $message, $headers)) {
+		// header("Location: patient_confirmation.php");
 
+
+		echo "
+            <script type=\"text/javascript\">
+            window.location.href = 'patient_confirmation.php';
+            </script>
+        ";
+		// echo RedirectURL('patient_confirmation.php');
+	} else {
+		// header("Location: error.php");
+		echo "
+            <script type=\"text/javascript\">
+            window.location.href = 'error.php';
+            </script>
+        ";
+	}
 	// } else {
 	// 	echo "<script>alert('Password Not Matched.')</script>";
 	// }
 }
-
-
-
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-	<meta charset="utf-8">
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-	<link rel="stylesheet" type="text/css" href="style/style.css">
+	<link rel="stylesheet" href="style/style1.css">
 	<link rel="stylesheet" href="style/css_responsive.css">
 
-
-	<title>Register Form - Pure Coding</title>
+	<title>Document</title>
 </head>
 
 <body>
+	<!-- <?php
+			//include 'splitfile/navbar.php' 
+			?> -->
+
 	<div class="container">
-		<form action="" method="POST" class="login-email">
-			<p class="login-text" style="font-size: 2rem; font-weight: 800;">Register Admin</p>
-			<div class="input-group">
-				<input type="text" placeholder="Username" name="username" value="" required>
+
+		<h1>Admin Registration</h1>
+
+		<form action="" method="post" enctype="multipart/form-data">
+
+			<div class="fdl">
+
+				<label for="username">Username</label>
+				<input id="name" name="username" type="text" placeholder="Alex Hunter">
+
 			</div>
-			<div class="input-group">
-				<input type="email" placeholder="Email" name="email" value="" required>
+			<div class="fdr">
+
+				<label for="email">Email</label>
+				<input id="email" name="email" type="email" placeholder="alex.hunter@email.com">
+
 			</div>
-			<!-- <div class="input-group">
-				<input type="password" placeholder="Password" name="password" value="$generator" required>
-			</div> -->
-			<!-- <div class="input-group">
-				<input type="password" placeholder="Confirm Password" name="cpassword" value="" required>
-			</div> -->
-			<input type="hidden"  name="utype" value="0" >
-			<div class="input-group">
-				<button name="submit" class="btn">Register</button>
+			<input type="hidden" name="utype" value="0">
+
+			<!-- <button id="submit" type="submit" name="submit" value="submit">Submit</button> -->
+			<div class="signupbtn">
+				<input type="submit" name="submit" value="submit" class="btn btn-outline-primary">
 			</div>
-			<!-- <p class="login-register-text">Have an account? <a href="login.php">Login Here</a>.</p> -->
 		</form>
 	</div>
-
-
 
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
