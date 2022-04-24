@@ -56,10 +56,10 @@ if (isset($_POST['submit'])) {
     $data = [
       'name' => $_POST['name'],
       'surname' => $_POST['surname'],
+      'email' => $_POST['email'],
       'date' => $_POST['date'],
       'ptype' => $_POST['ptype'],
       'file' => $fileNameNew,
-      'email' => $_POST['email'],
       'address' => $_POST['address'],
       'gender' => $_POST['gender'],
       'password' => 	$generator,
@@ -73,10 +73,34 @@ if (isset($_POST['submit'])) {
     //   $chk .= $chk1 . ",";
     // }
     if ($source->Query(
-      "INSERT INTO `users` (name,surname,date,ptype,file,email,gender,address,password,utype) VALUES (?,?,?,?,?,?,?,?,?,?)",
-      [$data['name'], $data['surname'], $data['ptype'], $data['file'], $data['date'], $data['address'], $data['email'], $data['gender'], $data['password'], $data['utype']]
+      "INSERT INTO `users` (name,surname,email,date,gender,address,ptype,file,utype,password) VALUES (?,?,?,?,?,?,?,?,?,?)",
+      [$data['name'], $data['surname'], $data['email'], $data['date'], $data['gender'], $data['address'], $data['ptype'], $data['file'], $data['utype'], $data['password']]
     )) {
     }
+
+    $to = $_POST['email']; // Receiver Email ID, Replace with your email ID
+	$subject = "Confirmation";
+	$message = "Your Account created succesfully as admin!" . "\n" . "Login information down below." . "\n" . "UserName :" . $_POST['username'] . "\n" . "Email :" . $_POST['email'] . "\n" . "Password :" . $data['password'];
+	$headers = "From: " . "rithyamforbe@gmail.com";
+	$_SESSION['regname'] = $_POST['username'];
+	if (mail($to, $subject, $message, $headers)) {
+		// header("Location: patient_confirmation.php");
+
+
+		echo "
+            <script type=\"text/javascript\">
+            window.location.href = 'patient_confirmation.php';
+            </script>
+        ";
+		// echo RedirectURL('patient_confirmation.php');
+	} else {
+		// header("Location: error.php");
+		echo "
+            <script type=\"text/javascript\">
+            window.location.href = 'error.php';
+            </script>
+        ";
+	}
   }
 
 ?>

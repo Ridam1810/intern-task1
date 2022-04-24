@@ -7,6 +7,14 @@ include 'splitfile/navbar.php';
 include "init.php";
 // if (!isset($_SESSION['username'])) {
 //     header("Location: login.php");
+
+
+
+// }
+
+
+// if (isset($_POST['submit'])) {
+//   header("Location: guestentry.php");
 // }
 ?>
 
@@ -33,7 +41,13 @@ include "init.php";
         <h2>A range of programs for healthcare</h2>
         <h1>Special Touch</h1>
         <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc et aliquet orci, non posuere
-          <button>Make an Appointment</button>
+        <button id="myButton" class="float-left submit-button" >Submit Your Problem</button>
+
+<script type="text/javascript">
+    document.getElementById("myButton").onclick = function () {
+        location.href = "guestentry.php";
+    };
+</script>
 
       </div>
       <div class="col2"><img src="./img/doctor.jpg" alt="doctor" id="homedoc">

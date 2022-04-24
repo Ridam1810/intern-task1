@@ -116,6 +116,7 @@
           if (isset($_SESSION['username'])) {
           ?>
             <a href="./logout.php" class="nav-item nav-link">Logout</a>
+            <a href="./chn_pass.php" class="nav-item nav-link">Change Password</a>
           <?php
           } else {
           ?>
