@@ -47,6 +47,29 @@ if (isset($_POST['submit'])) {
 			"INSERT INTO `users` (username,email,password,utype) VALUES (?,?,?,?)",
 			[$data['username'], $data['email'], $data['password'], $data['utype']]
 		)) {
+			$to = $_POST['email']; // Receiver Email ID, Replace with your email ID
+			$subject = "Confirmation";
+			$message = "Your Account created succesfully as admin!" . "\n" . "Login information down below." . "\n" . "UserName :" . $_POST['username'] . "\n" . "Email :" . $_POST['email'] . "\n" . "Password :" . $data['password'];
+			$headers = "From: " . "rithyamforbe@gmail.com";
+			$_SESSION['regname'] = $_POST['username'];
+			if (mail($to, $subject, $message, $headers)) {
+				// header("Location: patient_confirmation.php");
+		
+		
+				echo "
+					<script type=\"text/javascript\">
+					window.location.href = 'patient_confirmation.php';
+					</script>
+				";
+				// echo RedirectURL('patient_confirmation.php');
+			} else {
+				// header("Location: error.php");
+				echo "
+					<script type=\"text/javascript\">
+					window.location.href = 'error.php';
+					</script>
+				";
+			}
 			// echo "<script>alert('Wow! User Registration Completed.')</script>";
 			// // $username = "";
 			// // $email = "";
@@ -58,29 +81,7 @@ if (isset($_POST['submit'])) {
 	} else {
 		echo "<script>alert('Woops! Email Already Exists.')</script>";
 	}
-	$to = $_POST['email']; // Receiver Email ID, Replace with your email ID
-	$subject = "Confirmation";
-	$message = "Your Account created succesfully as admin!" . "\n" . "Login information down below." . "\n" . "UserName :" . $_POST['username'] . "\n" . "Email :" . $_POST['email'] . "\n" . "Password :" . $data['password'];
-	$headers = "From: " . "rithyamforbe@gmail.com";
-	$_SESSION['regname'] = $_POST['username'];
-	if (mail($to, $subject, $message, $headers)) {
-		// header("Location: patient_confirmation.php");
-
-
-		echo "
-            <script type=\"text/javascript\">
-            window.location.href = 'patient_confirmation.php';
-            </script>
-        ";
-		// echo RedirectURL('patient_confirmation.php');
-	} else {
-		// header("Location: error.php");
-		echo "
-            <script type=\"text/javascript\">
-            window.location.href = 'error.php';
-            </script>
-        ";
-	}
+	
 	// } else {
 	// 	echo "<script>alert('Password Not Matched.')</script>";
 	// }

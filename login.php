@@ -59,7 +59,9 @@ if (isset($_POST['submit'])) {
 	//   print_r ($result);exit();
 	if ($result) {
 
+
 		$_SESSION['username'] = $result->username;
+		$_SESSION['email'] = $result->email;
 		$_SESSION['utype'] = $result->utype;
 
 

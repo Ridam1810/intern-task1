@@ -71,7 +71,7 @@ include "init.php";
 
 
                                 <?php echo "<td> 
-                 <a href='deleteguest.php?deleteuser=" . $row->id . "' class='.btn-sm btn-outline-danger mr-2'>Delete</a> </td>
+                 <a href='response.php?id=" . $row->id . "' class='.btn-sm btn-outline-info mr-2'>Response</a>"."  "."<a href='deleteguest.php?deleteuser=" . $row->id . "' class='.btn-sm btn-outline-danger mr-2'>Delete</a> </td>
                 </tr>"; ?>
 
                         <?php

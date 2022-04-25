@@ -12,72 +12,75 @@ $query = $source->Query("Select * FROM users where id=?", [$_GET['id']]);
 $profile = $source->singleRow();
 
 if (isset($_POST['submit'])) {
-    
 
-    $file = $_FILES['file'];
 
-    // print_r($file);
-    $fileName = $_FILES['file']['name'];
-    $fileTmpName = $_FILES['file']['tmp_name'];
-    $fileSize = $_FILES['file']['size'];
-    $fileError = $_FILES['file']['error'];
-    $fileType = $_FILES['file']['type'];
-  
-    $fileExt = explode('.', $fileName);
-    $fileActualExt = strtolower(end($fileExt));
-    $allowed = array('jpg', 'jpeg', 'png', 'pdf');
-  
-    if (in_array($fileActualExt, $allowed)) {
-      if ($fileError === 0) {
-        if ($fileSize < 10000000000) {
-          $fileNameNew = uniqid('', true) . "." . $fileActualExt;
-          $fileDestination = 'Uploads/' . $fileNameNew;
-          move_uploaded_file($fileTmpName, $fileDestination);
-  
-          //header("Location: guestentry.php");
-  
-  
-  
-        } else {
-  
-          echo "File is too big!";
-        }
+  $file = $_FILES['file'];
+
+  // print_r($file);
+  $fileName = $_FILES['file']['name'];
+  $fileTmpName = $_FILES['file']['tmp_name'];
+  $fileSize = $_FILES['file']['size'];
+  $fileError = $_FILES['file']['error'];
+  $fileType = $_FILES['file']['type'];
+
+  $fileExt = explode('.', $fileName);
+  $fileActualExt = strtolower(end($fileExt));
+  $allowed = array('jpg', 'jpeg', 'png', 'pdf');
+
+  if (in_array($fileActualExt, $allowed)) {
+    if ($fileError === 0) {
+      if ($fileSize < 10000000000) {
+        $fileNameNew = uniqid('', true) . "." . $fileActualExt;
+        $fileDestination = 'Uploads/' . $fileNameNew;
+        move_uploaded_file($fileTmpName, $fileDestination);
+
+        //header("Location: guestentry.php");
+
+
+
       } else {
-  
-        echo "There was one error uploading your file!";
+
+        echo "File is too big!";
       }
     } else {
-  
-      echo "You cannot upload this type of flies!";
+
+      echo "There was one error uploading your file!";
     }
+  } else {
+
+    echo "You cannot upload this type of flies!";
+  }
 
 
-    $data = [
-        'name' => $_POST['name'],
-        'surname' => $_POST['surname'],
-        'date' => $_POST['date'],
-        'ptype' => $_POST['ptype'],
-        'file' => $fileNameNew,
-        'email' => $_POST['email'],
-        'address' => $_POST['address'],
-        'gender' => $_POST['gender'],
-        'utype' => $_POST['utype']
-        
-      ];
+  $data = [
+    'name' => $_POST['name'],
+    'surname' => $_POST['surname'],
+    'date' => $_POST['date'],
+    'ptype' => $_POST['ptype'],
+    'file' => $fileNameNew,
+    'email' => $_POST['email'],
+    'address' => $_POST['address'],
+    'gender' => $_POST['gender'],
+    'utype' => $_POST['utype']
 
-    
-    
-    if ($source->Query(
-        "UPDATE users SET name=?,surname=?,email=?,date=?,gender=?,address=?,ptype=?,file=? where id=?",
-        [$data['name'], $data['surname'], $data['email'], $data['date'], $data['gender'], $data['address'], $data['ptype'], $data['file'], $_GET['id']]
-    )) {
-        
-    
-$path="Uploads/".$profile->file; 
-//echo $path;exit();
-unlink($path);
-        header("location:list.php");
-    }
+  ];
+
+
+  if (!empty($data['file'])) {
+
+    $path = "Uploads/" . $profile->file;
+    //echo $path;exit();
+    unlink($path);
+  } else {
+    $data['file'] = $profile->file;
+  }
+  if ($source->Query(
+    "UPDATE users SET name=?,surname=?,email=?,date=?,gender=?,address=?,ptype=?,file=? where id=?",
+    [$data['name'], $data['surname'], $data['email'], $data['date'], $data['gender'], $data['address'], $data['ptype'], $data['file'], $_GET['id']]
+  )) {
+
+    header("location:list.php");
+  }
 }
 ?>
 
@@ -99,11 +102,11 @@ unlink($path);
   <!-- navbar -->
   <?php include 'splitfile/navbar.php' ?>
 
-	
+
 
   <div class="container-fluid">
     <div class="container">
-    <h1>Update profile</h1>
+      <h1>Update profile</h1>
       <form action="" method="POST" enctype="multipart/form-data">
         <div class="fdl" id="fdl1">
 
@@ -118,29 +121,30 @@ unlink($path);
           <label for="dob">Date of birth</label>
           <input type="date" name="date" value="<?php echo $profile->date; ?>" id="dob">
           <div class="gender">
-          <?php
-                            
-                            if($profile->gender == "male"){?>
-                            <input type="radio" name="gender"  checked> Male <input type="radio" name="gender"  > Female
-                            <?php
-                            }
-                            else { ?>
+            <?php
 
-                                 <input type="radio" name="gender"  > Male <input type="radio" name="gender"  checked> Female
-                           <?php } ?>
+            if ($profile->gender == "male") { ?>
+              <input type="radio" name="gender" checked> Male <input type="radio" name="gender"> Female
+            <?php
+            } else { ?>
+
+              <input type="radio" name="gender"> Male <input type="radio" name="gender" checked> Female
+            <?php } ?>
           </div>
         </div>
 
         <div class="fdr">
           <input type="email" name="email" value="<?php echo $profile->email; ?>" placeholder="email address">
-          <input type="text" name="address"  value="<?php echo $profile->address; ?>" placeholder="Address">
-          <label for="speciality" >Choose A speciality</label>
-          <select name="ptype"  id="speciality">
-              <?php
-               $type=  $profile->ptype; 
-               ?>
-          <!-- <option value="<?php //echo $profile->ptype; ?>"><?php //echo="$type"; ?> -->
-          <!-- </option> -->
+          <input type="text" name="address" value="<?php echo $profile->address; ?>" placeholder="Address">
+          <label for="speciality">Choose A speciality</label>
+          <select name="ptype" id="speciality" value="<?php echo $profile->ptype; ?>">
+            <?php
+            //$type =  $profile->ptype;
+            ?>
+            <!-- <option value="<?php //echo $profile->ptype; 
+                                ?>"><?php //echo="$type"; 
+                                                                  ?> -->
+            <!-- </option> -->
             <option value="Allergy and Immunology">Allergy and Immunology</option>
             <option value="Anesthesiology">Anesthesiology</option>
             <option value="Dermatology">Dermatology</option>
@@ -166,8 +170,8 @@ unlink($path);
           <input type="hidden" name="utype" value="1">
         </div>
         <div class="signupbtn">
-        <input type="submit" name="submit" value="submit" class="btn btn-outline-primary">
-      </div>
+          <input type="submit" name="submit" value="submit" class="btn btn-outline-primary">
+        </div>
       </form>
     </div>
   </div>
