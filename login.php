@@ -105,7 +105,7 @@ if (isset($_POST['submit'])) {
 				<!-- <button name="submit" class="btn">Login <a href="index1.php"></a></button> -->
 				<button type="submit" name="submit" class="btn">Login</button>
 			</div>
-			<p class="login-register-text"><a href="dashboard.php">Enter as Guest</a>.</p>
+			<p class="login-register-text"><a href="patient_reg.php">Register as Guest</a>.</p>
 		</form>
 	</div>
 

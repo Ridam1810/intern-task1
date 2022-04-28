@@ -113,46 +113,45 @@
 
             <a href="./about.html" class="nav-item nav-link">About</a>
             <a href="./contact.php" class="nav-item nav-link">Contact</a>
+
+          <?php } else if ($_SESSION['utype'] == 1 && isset($_SESSION['username'])) {
+          ?>
+
+            <a href="./list.php" class="nav-item nav-link">Employees</a>
+            <a href="./guestentry.php" class="nav-item nav-link">Services</a>
+            <a href="./patient.php" class="nav-item nav-link">Patients</a>
+            <a href="./about.html" class="nav-item nav-link">About</a>
+            <a href="./contact.php" class="nav-item nav-link">Contact</a>
+
+          <?php } else {
+          ?>
+
+
+          <?php }
+
+          ?>
         </div>
-      <?php } 
-      else if ($_SESSION['utype'] == 1 && isset($_SESSION['username'])) {
-      ?>
+        <div class="navbar-nav ms-auto">
 
-        <a href="./list.php" class="nav-item nav-link">Employees</a>
-        <a href="./guestentry.php" class="nav-item nav-link">Services</a>
-        <a href="./patient.php" class="nav-item nav-link">Patients</a>
-        <a href="./about.html" class="nav-item nav-link">About</a>
-        <a href="./contact.php" class="nav-item nav-link">Contact</a>
+          <?php
+          if (isset($_SESSION['username'])) {
+          ?>
+            <a href="./logout.php" class="nav-item nav-link">Logout</a>
+            <a href="./chn_pass.php" class="nav-item nav-link">Change Password</a>
+          <?php
+          } else {
+          ?>
+
+            <a href="./login.php" class="nav-item nav-link">Login</a>
+          <?php
+          }
+
+          ?>
+
+
+
+        </div>
       </div>
-    <?php } else{
-    ?>
-      
-      
-    <?php }
-
-    ?>
-
-    <div class="navbar-nav ms-auto">
-
-      <?php
-      if (isset($_SESSION['username'])) {
-      ?>
-        <a href="./logout.php" class="nav-item nav-link">Logout</a>
-        <a href="./chn_pass.php" class="nav-item nav-link">Change Password</a>
-      <?php
-      } else {
-      ?>
-
-        <a href="./login.php" class="nav-item nav-link">Login</a>
-      <?php
-      }
-
-      ?>
-
-
-
-    </div>
-    </div>
     </div>
   </nav>
   <!-- <div class="container">
