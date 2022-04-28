@@ -5,7 +5,9 @@ if (!isset($_SESSION)) {
 }
 // include 'splitfile/navbar.php';
 include "init.php";
-
+if (!isset($_SESSION['username'])) {
+    header("Location: login.php");
+}
 ?>
 
 <!DOCTYPE html>
@@ -27,7 +29,7 @@ include "init.php";
 <body>
     <div class="container">
         <form action="" method="POST" class="login-email">
-            <p class="login-text" style="font-size: 2rem; font-weight: 800;">Got your info!<br><?php echo " Thank you" . " " . $_SESSION['regname'] . ",<br><h4> We will maintain our further contact through email!<br>contact number :01985$$$$$$</h4>"; ?></p>
+            <p class="login-text" style="font-size: 2rem; font-weight: 800;"><br><br><br>Response has been submitted!<br><br><br><br><br></p>
             <p class="login-register-text"> <a href="dashboard.php">Go Back</a>.</p>
 
         </form>

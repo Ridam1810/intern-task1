@@ -1,4 +1,7 @@
 <?php
+if (!isset($_SESSION)) {
+	session_start();
+}
 
 include "init.php";
 include "validation.php";
@@ -8,10 +11,10 @@ if (!isset($_SESSION['username'])) {
   header("Location: login.php");
 }
 
-$query = $source->Query("Select * FROM guest where id=?", [$_GET['id']]);
+$query = $source->Query("Select * FROM users where id=?", [$_GET['id']]);
 $profile = $source->singleRow();
 
-if (isset($_POST['submit'])) {
+if (isset($_POST['Send'])) {
 
 
   
@@ -20,22 +23,19 @@ if (isset($_POST['submit'])) {
 
 
   $data = [
-    'response' => $_POST['response']
+    'message' => $_POST['message']
 
   ];
 
-  if ($source->Query(
-    "UPDATE guest SET response=? where id=?",
-    [$data['response'], $_GET['id']]
-  )) {
+ 
 
     $to = $profile->email; // Receiver Email ID, Replace with your email ID
-    $subject = "Prescription";
-    $message = "Name :" . $profile->fullname . "\n" . "Phone :" . $profile->phone . "\n" . "Address :" . $profile->address . "\n"  . "\n" . "\n" . "Wrote the following :" . $profile->ptype. "\n" . "\n" . "Doctor's response :".$_POST['response'];
+    $subject = "ICDDR'B";
+    $message = "Name :" . $_SESSION['username'] . "\n" . "Email :" . $_SESSION['email'] ."\n". "Message :" . $_POST['message'];
     $headers = "From: " . "rithyamforbe@gmail.com";
   
-    $_SESSION['regname'] = $_POST['fullname'];
-    $_SESSION['filename'] = $fileNameNew;
+    // $_SESSION['regname'] = $_POST['fullname'];
+    // $_SESSION['filename'] = $fileNameNew;
   
   
     if (mail($to, $subject, $message, $headers)) {
@@ -56,7 +56,7 @@ if (isset($_POST['submit'])) {
               </script>
           ";
     }
-  }
+  
 }
 
 // if (isset($_POST['hold'])){
@@ -116,37 +116,18 @@ if (isset($_POST['submit'])) {
 
   <div class="container">
 
-    <h1>Prescribe</h1>
+    <h1>Message</h1>
 
     <form action="" method="post" enctype="multipart/form-data">
 
-      <div class="fdl">
-
-        <label for="name">Full Name</label>
-        <input id="name" name="fullname" type="text" value="<?php echo $profile->fullname; ?>" readonly>
-
-        <label for="phone">Phone</label>
-        <input id="phone" name="phone" type="tel" value="<?php echo $profile->phone; ?>" readonly>
-        <label for="phone">Issues</label>
-        <input id="message" name="message" type="message" value="<?php echo $profile->message; ?>" readonly>
+      
 
 
-        <label for="response">Reponse</label>
-      <textarea name="response" id="message" cols="30" rows="4" placeholder="TEXT"></textarea>
-      </div>
+        <label for="response"></label>
+      <textarea name="message" id="message" cols="10" rows="5" placeholder="TEXT" required></textarea>
+    
 
-      <div class="fdr">
-
-        <label for="email">Email</label>
-        <input id="email" name="email" type="email" value="<?php echo $profile->email; ?>" readonly>
-
-        <label for="address">Address</label>
-        <input id="address" name="address" type="text" value="<?php echo $profile->address; ?>" readonly>
-
-        <label for="formFileSm" class="form-label"></label>
-        <img src="Uploads/<?php echo $profile->file; ?>" height=500px width=400px>
-
-      </div>
+      
 
 
 
@@ -161,7 +142,7 @@ if (isset($_POST['submit'])) {
 
       <!-- <button id="submit" type="submit" name="submit" value="submit">Submit</button> -->
       <div class="signupbtn">
-        <input type="submit" name="submit" value="submit" class="btn btn-outline-primary">
+        <input type="submit" name="Send" value="Send" class="btn btn-outline-primary">
       </div>
       <!-- <div class="signupbtn">
         <input type="hold" name="hold" value="Insufficient Information?" class="btn btn-outline-primary">

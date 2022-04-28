@@ -1,6 +1,9 @@
 <?php
 include "init.php";
-
+error_reporting(E_ERROR | E_PARSE);
+if (!isset($_SESSION['username'])) {
+  header("Location: login.php");
+}
 ?>
 
 
@@ -33,8 +36,8 @@ include "init.php";
         <div class="container">
 <div style="border: 5px; padding: 5px; margin-top: 15px; margin-bottom:15px;"><center>
 <form class="example" action="/action_page.php">
-  <input type="text" placeholder="Search.." name="search" class="rounded" style="padding:5px; ">
-  <button type="submit" style="padding:5px; color:red;">Search</button>
+  <input type="text" placeholder="Search.." name="key" class="rounded" style="padding:5px; ">
+  <button type="submit" name="submit" value="submit" style="padding:5px; color:red;">Search</button>
 </form>      
 </center></div>
 
@@ -79,9 +82,9 @@ include "init.php";
 
 
 
-                                <?php echo "<td> 
+                                <?php if($_SESSION['utype']==0){echo "<td> 
                  <a href='Edit.php?id=" . $row->id . "' class='.btn-sm btn-outline-info mr-2'>Edit</a>"."  "."<a href='delete.php?deleteuser=" . $row->id . "' class='.btn-sm btn-outline-danger mr-2'>Delete</a> </td>
-                </tr>"; ?>
+                </tr>"; } ?>
 
                              
                         <?php

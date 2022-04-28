@@ -1,18 +1,17 @@
 <?php
 
-//  exit();
 include "init.php";
 include "validation.php";
+error_reporting(E_ERROR | E_PARSE);
 
 if ($_SESSION['utype']!=0 && !isset($_SESSION['username'])) {
   header("Location: login.php");
 }
 
-if (isset($_POST['submit'])) {
-  
-    $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-	$generator = substr(str_shuffle($chars), 0, 8);
+$query = $source->Query("Select * FROM users where id=?", [$_GET['id']]);
+$profile = $source->singleRow();
 
+if (isset($_POST['submit'])) {
 
 
   $file = $_FILES['file'];
@@ -53,56 +52,36 @@ if (isset($_POST['submit'])) {
   }
 
 
-    $data = [
-      'name' => $_POST['name'],
-      'surname' => $_POST['surname'],
-      'email' => $_POST['email'],
-      'date' => $_POST['date'],
-      'ptype' => $_POST['ptype'],
-      'file' => $fileNameNew,
-      'address' => $_POST['address'],
-      'gender' => $_POST['gender'],
-      'password' => 	$generator,
-      'utype' => $_POST['utype']
-      
-    ];
+  $data = [
+    'name' => $_POST['name'],
+    'surname' => $_POST['surname'],
+    'date' => $_POST['date'],
+    'ptype' => $_POST['ptype'],
+    'file' => $fileNameNew,
+    'email' => $_POST['email'],
+    'address' => $_POST['address'],
+    'gender' => $_POST['gender'],
+    'utype' => $_POST['utype']
+
+  ];
 
 
+  if (!empty($data['file'])) {
 
-    // foreach ($data['tech'] as $chk1) {
-    //   $chk .= $chk1 . ",";
-    // }
-    if ($source->Query(
-      "INSERT INTO `users` (name,surname,email,date,gender,address,ptype,file,utype,password) VALUES (?,?,?,?,?,?,?,?,?,?)",
-      [$data['name'], $data['surname'], $data['email'], $data['date'], $data['gender'], $data['address'], $data['ptype'], $data['file'], $data['utype'], $data['password']]
-    )) {
-    }
-
-    $to = $_POST['email']; // Receiver Email ID, Replace with your email ID
-	$subject = "Confirmation";
-	$message = "Your Account created succesfully as admin!" . "\n" . "Login information down below." . "\n" . "UserName :" . $_POST['username'] . "\n" . "Email :" . $_POST['email'] . "\n" . "Password :" . $data['password'];
-	$headers = "From: " . "rithyamforbe@gmail.com";
-	$_SESSION['regname'] = $_POST['username'];
-	if (mail($to, $subject, $message, $headers)) {
-		// header("Location: patient_confirmation.php");
-
-
-		echo "
-            <script type=\"text/javascript\">
-            window.location.href = 'emp_regmsg.php';
-            </script>
-        ";
-		// echo RedirectURL('patient_confirmation.php');
-	} else {
-		// header("Location: error.php");
-		echo "
-            <script type=\"text/javascript\">
-            window.location.href = 'error.php';
-            </script>
-        ";
-	}
+    $path = "Uploads/" . $profile->file;
+    //echo $path;exit();
+    unlink($path);
+  } else {
+    $data['file'] = $profile->file;
   }
+  if ($source->Query(
+    "UPDATE users SET name=?,surname=?,email=?,date=?,gender=?,address=?,ptype=?,file=? where id=?",
+    [$data['name'], $data['surname'], $data['email'], $data['date'], $data['gender'], $data['address'], $data['ptype'], $data['file'], $_GET['id']]
+  )) {
 
+    header("location:list.php");
+  }
+}
 ?>
 
 
@@ -123,35 +102,50 @@ if (isset($_POST['submit'])) {
   <!-- navbar -->
   <?php include 'splitfile/navbar.php' ?>
 
-	
+
 
   <div class="container-fluid">
     <div class="container">
-    <h1>Employee Registration</h1>
+      <h1>Update profile</h1>
       <form action="" method="POST" enctype="multipart/form-data">
         <div class="fdl" id="fdl1">
 
-          <input type="name" placeholder="First name" name="name" value="<?php if (isset($old_name)) echo $old_name; ?>" required>
+          <input type="name" placeholder="First name" name="name" value="<?php echo $profile->name; ?>" required>
           <div class="errors">
             <?php echo $errors['name'] ?? '' ?>
           </div>
-          <input type="surname" name="surname" placeholder="Surname" value="<?php if (isset($old_name)) echo $old_name; ?>" required>
+          <input type="surname" name="surname" placeholder="Surname" value="<?php echo $profile->surname; ?>" required>
           <div class="errors">
             <?php echo $errors['surname'] ?? '' ?>
           </div>
           <label for="dob">Date of birth</label>
-          <input type="date" name="date" id="dob">
+          <input type="date" name="date" value="<?php echo $profile->date; ?>" id="dob" required> 
           <div class="gender">
-            <input type="radio" name="gender" value="male" <?php if (isset($old_gender) && $old_gender == "male") echo ' checked'; ?> required> Male
-            <input type="radio" name="gender" value="female" <?php if (isset($old_gender) && $old_gender == "female") echo ' checked'; ?> required> Female
+            <?php
+
+            if ($profile->gender == "male") { ?>
+              <input type="radio" name="gender" checked> Male <input type="radio" name="gender" required> Female
+            <?php
+            } else { ?>
+
+              <input type="radio" name="gender"> Male <input type="radio" name="gender" checked required> Female
+            <?php } ?>
           </div>
         </div>
 
         <div class="fdr">
-          <input type="email" name="email" placeholder="email address" required>
-          <input type="text" name="address" placeholder="Address" required>
+          <input type="email" name="email" value="<?php echo $profile->email; ?>" placeholder="email address" required>
+          <input type="text" name="address" value="<?php echo $profile->address; ?>" placeholder="Address" required>
           <label for="speciality">Choose A speciality</label>
-          <select name="ptype" id="speciality" >
+          <select name="ptype" id="speciality" value="<?php echo $profile->ptype; ?>" required>
+            <?php
+            //$type =  $profile->ptype;
+            ?>
+            <!-- <option value="<?php //echo $profile->ptype; 
+                                ?>"><?php //echo="$type"; 
+                                                                  ?> -->
+            <!-- </option> -->
+           
             <option value="Allergy and Immunology">Allergy and Immunology</option>
             <option value="Anesthesiology">Anesthesiology</option>
             <option value="Dermatology">Dermatology</option>
@@ -173,7 +167,7 @@ if (isset($_POST['submit'])) {
           </select>
 
           <label for="formFileSm" class="form-label">Upload a photo</label>
-          <input class="form-control form-control-sm" id="file" name="file" type="file" required>
+          <input class="form-control form-control-sm" id="file" name="file" type="file" >
           <input type="hidden" name="utype" value="1">
         </div>
         <div class="signupbtn">

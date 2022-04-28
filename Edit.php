@@ -4,7 +4,7 @@ include "init.php";
 include "validation.php";
 error_reporting(E_ERROR | E_PARSE);
 
-if (!isset($_SESSION['username'])) {
+if ($_SESSION['utype']!=0 && !isset($_SESSION['username'])) {
   header("Location: login.php");
 }
 
@@ -110,34 +110,34 @@ if (isset($_POST['submit'])) {
       <form action="" method="POST" enctype="multipart/form-data">
         <div class="fdl" id="fdl1">
 
-          <input type="name" placeholder="First name" name="name" value="<?php echo $profile->name; ?>">
+          <input type="name" placeholder="First name" name="name" value="<?php echo $profile->name; ?>" required>
           <div class="errors">
             <?php echo $errors['name'] ?? '' ?>
           </div>
-          <input type="surname" name="surname" placeholder="Surname" value="<?php echo $profile->surname; ?>">
+          <input type="surname" name="surname" placeholder="Surname" value="<?php echo $profile->surname; ?>" required>
           <div class="errors">
             <?php echo $errors['surname'] ?? '' ?>
           </div>
           <label for="dob">Date of birth</label>
-          <input type="date" name="date" value="<?php echo $profile->date; ?>" id="dob">
+          <input type="date" name="date" value="<?php echo $profile->date; ?>" id="dob" required> 
           <div class="gender">
             <?php
 
             if ($profile->gender == "male") { ?>
-              <input type="radio" name="gender" checked> Male <input type="radio" name="gender"> Female
+              <input type="radio" name="gender" checked> Male <input type="radio" name="gender" required> Female
             <?php
             } else { ?>
 
-              <input type="radio" name="gender"> Male <input type="radio" name="gender" checked> Female
+              <input type="radio" name="gender"> Male <input type="radio" name="gender" checked required> Female
             <?php } ?>
           </div>
         </div>
 
         <div class="fdr">
-          <input type="email" name="email" value="<?php echo $profile->email; ?>" placeholder="email address">
-          <input type="text" name="address" value="<?php echo $profile->address; ?>" placeholder="Address">
+          <input type="email" name="email" value="<?php echo $profile->email; ?>" placeholder="email address" required>
+          <input type="text" name="address" value="<?php echo $profile->address; ?>" placeholder="Address" required>
           <label for="speciality">Choose A speciality</label>
-          <select name="ptype" id="speciality" value="<?php echo $profile->ptype; ?>">
+          <select name="ptype" id="speciality" value="<?php echo $profile->ptype; ?>" required>
             <?php
             //$type =  $profile->ptype;
             ?>
@@ -145,6 +145,7 @@ if (isset($_POST['submit'])) {
                                 ?>"><?php //echo="$type"; 
                                                                   ?> -->
             <!-- </option> -->
+           
             <option value="Allergy and Immunology">Allergy and Immunology</option>
             <option value="Anesthesiology">Anesthesiology</option>
             <option value="Dermatology">Dermatology</option>
@@ -166,7 +167,7 @@ if (isset($_POST['submit'])) {
           </select>
 
           <label for="formFileSm" class="form-label">Upload a photo</label>
-          <input class="form-control form-control-sm" id="file" name="file" type="file">
+          <input class="form-control form-control-sm" id="file" name="file" type="file" >
           <input type="hidden" name="utype" value="1">
         </div>
         <div class="signupbtn">

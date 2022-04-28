@@ -98,39 +98,61 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <div class="navbar-nav">
+          <?php
 
-          <a href="./register.php" class="nav-item nav-link">Register Admin</a>
-          <a href="./list.php" class="nav-item nav-link">Employees</a>
-          <a href="./index1.php" class="nav-item nav-link">Register</a>
-          <a href="./guestentry.php" class="nav-item nav-link">Services</a>
-          <a href="./patient.php" class="nav-item nav-link">Patients</a>
+          if ($_SESSION['utype'] == 0 && isset($_SESSION['username'])) {
+
+          ?>
+
+            <a href="./register.php" class="nav-item nav-link">Register Admin</a>
+            <a href="./list.php" class="nav-item nav-link">Employees</a>
+            <a href="./index1.php" class="nav-item nav-link">Register</a>
+            <a href="./guestentry.php" class="nav-item nav-link">Services</a>
+            <a href="./patient.php" class="nav-item nav-link">Patients</a>
 
 
-          <a href="./about.html" class="nav-item nav-link">About</a>
-          <a href="./contact.html" class="nav-item nav-link">Contact</a>
-
+            <a href="./about.html" class="nav-item nav-link">About</a>
+            <a href="./contact.php" class="nav-item nav-link">Contact</a>
         </div>
-        <div class="navbar-nav ms-auto">
+      <?php } 
+      else if ($_SESSION['utype'] == 1 && isset($_SESSION['username'])) {
+      ?>
 
-          <?php
-          if (isset($_SESSION['username'])) {
-          ?>
-            <a href="./logout.php" class="nav-item nav-link">Logout</a>
-            <a href="./chn_pass.php" class="nav-item nav-link">Change Password</a>
-          <?php
-          } else {
-          ?>
-
-            <a href="./login.php" class="nav-item nav-link">Login</a>
-          <?php
-          }
-
-          ?>
-
-
-
-        </div>
+        <a href="./list.php" class="nav-item nav-link">Employees</a>
+        <a href="./guestentry.php" class="nav-item nav-link">Services</a>
+        <a href="./patient.php" class="nav-item nav-link">Patients</a>
+        <a href="./about.html" class="nav-item nav-link">About</a>
+        <a href="./contact.php" class="nav-item nav-link">Contact</a>
       </div>
+    <?php } else{
+    ?>
+      
+      
+    <?php }
+
+    ?>
+
+    <div class="navbar-nav ms-auto">
+
+      <?php
+      if (isset($_SESSION['username'])) {
+      ?>
+        <a href="./logout.php" class="nav-item nav-link">Logout</a>
+        <a href="./chn_pass.php" class="nav-item nav-link">Change Password</a>
+      <?php
+      } else {
+      ?>
+
+        <a href="./login.php" class="nav-item nav-link">Login</a>
+      <?php
+      }
+
+      ?>
+
+
+
+    </div>
+    </div>
     </div>
   </nav>
   <!-- <div class="container">
