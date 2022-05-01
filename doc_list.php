@@ -88,7 +88,7 @@ if (!isset($_SESSION['username'])) {
 
                                     <?php if ($_SESSION['utype'] == 0) {
                                         echo "<td> 
-                 <a href='Edit.php?id=" . $row->id . "' class='.btn-sm btn-outline-info mr-2'>Get Appointment</a>" . "  " . " </td>
+                 <a href='appointment.php?id=" . $row->id . "' class='.btn-sm btn-outline-info mr-2'>Get Appointment</a>" . "  " . " </td>
                 </tr>";
                                     } ?>
 
@@ -106,8 +106,9 @@ if (!isset($_SESSION['username'])) {
                         ];
                         // $query = $source->Query("SELECT * FROM `users` WHERE utype=1");
                         $keyword = $_POST['keyword'];
-                        $source->Query("SELECT * FROM `users` WHERE `name` LIKE ? and utype=1 or `surname` LIKE ? or `ptype` LIKE ? ",[$keyword,$keyword,$keyword]);
+                        $source->Query("SELECT *  FROM `users` WHERE `name` LIKE '%$keyword%' OR `ptype` LIKE '%$keyword%' " );
                         $details = $source->FetchAll();
+
                         $numrow = $source->CountRows();
 
                         if ($numrow > 0) {
@@ -130,7 +131,7 @@ if (!isset($_SESSION['username'])) {
 
                                     <?php if ($_SESSION['utype'] == 0) {
                                         echo "<td> 
-                 <a href='Edit.php?id=" . $row->id . "' class='.btn-sm btn-outline-info mr-2'>Get Appointment</a>" . "  " . " </td>
+                 <a href='appointment.php?id=" . $row->id . "' class='.btn-sm btn-outline-info mr-2'>Get Appointment</a>" . "  " . " </td>
                 </tr>";
                                     } ?>
 

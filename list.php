@@ -106,9 +106,12 @@ if (!isset($_SESSION['username'])) {
                         ];
                         // $query = $source->Query("SELECT * FROM `users` WHERE utype=1");
                         $keyword = $_POST['keyword'];
-                        $source->Query("SELECT * FROM `users` WHERE `name` LIKE ? and utype=1 or `surname` LIKE ? or `ptype` LIKE ? ",[$keyword,$keyword,$keyword]);
+                        // $source->Query("SELECT * FROM `users` WHERE `name` LIKE ? and utype=1 or `surname` LIKE ? or `ptype` LIKE ? ",[$keyword,$keyword,$keyword]);
+                        $source->Query("SELECT *  FROM `users` WHERE `surname` LIKE '%$keyword%' OR `name` LIKE '%$keyword%' OR `address` LIKE '%$keyword%' " );
+                        // SELECT *  FROM `users` WHERE `surname` LIKE '%he%'
                         $details = $source->FetchAll();
                         $numrow = $source->CountRows();
+                        
 
                         if ($numrow > 0) {
                             foreach ($details as $row) :

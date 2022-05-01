@@ -96,7 +96,7 @@ include "init.php";
                         ];
                         // $query = $source->Query("SELECT * FROM `users` WHERE utype=1");
                         $keyword = $_POST['keyword'];
-                        $source->Query("SELECT * FROM `guest` WHERE `fullname` LIKE ? or `ptype` LIKE ? ",[$keyword,$keyword]);
+                        $source->Query("SELECT *  FROM `guest` WHERE `fullname` LIKE '%$keyword%' OR `ptype` LIKE '%$keyword%' " );
                         $details = $source->FetchAll();
                         $numrow = $source->CountRows();
 
