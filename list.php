@@ -2,7 +2,7 @@
 include "init.php";
 error_reporting(E_ERROR | E_PARSE);
 if (!isset($_SESSION['username'])) {
-  header("Location: login.php");
+    header("Location: login.php");
 }
 ?>
 
@@ -34,15 +34,17 @@ if (!isset($_SESSION['username'])) {
 
     <div class="container-fluid">
         <div class="container">
-<div style="border: 5px; padding: 5px; margin-top: 15px; margin-bottom:15px;"><center>
-<form class="example" action="/action_page.php">
-  <input type="text" placeholder="Search.." name="key" class="rounded" style="padding:5px; ">
-  <button type="submit" name="submit" value="submit" style="padding:5px; color:red;">Search</button>
-</form>      
-</center></div>
+            <div style="border: 5px; padding: 5px; margin-top: 15px; margin-bottom:15px;">
+                <center>
+                    <form class="example" action=" " method="post">
+                        <input type="text" placeholder="Search.." name="keyword" class="rounded" style="padding:5px; ">
+                        <button type="submit" name="submit" value="submit" style="padding:5px; color:red;">Search</button>
+                    </form>
+                </center>
+            </div>
 
             <table class="table table-hover">
-                
+
                 <thead>
                     <tr>
                         <th class="col-1">ID</th>
@@ -54,42 +56,90 @@ if (!isset($_SESSION['username'])) {
                         <th class="col-1">Address</th>
                         <th class="col-1">Speciality</th>
                         <th class="col-1">Picture</th>
-                        
+
 
                     </tr>
                 </thead>
                 <tbody>
-                <?php
-                    $query = $source->Query("SELECT * FROM `users` WHERE utype=1");
-                    $details = $source->FetchAll();
-                    $numrow = $source->CountRows();
+                    <?php
 
-                    if ($numrow > 0) {
-                        foreach ($details as $row) :
+                    if (!isset($_POST['submit'])) {
+                        $query = $source->Query("SELECT * FROM `users` WHERE utype=1");
+                        $details = $source->FetchAll();
+                        $numrow = $source->CountRows();
+
+                        if ($numrow > 0) {
+                            foreach ($details as $row) :
 
                     ?>
-                            <tr>
-                                <td><?php echo $row->id; ?></td>
-                                <td><?php echo $row->name; ?></td>
-                                <td><?php echo $row->surname; ?></td>
-                                <td><?php echo $row->email; ?></td>
-                                <td><?php echo $row->date; ?></td>
-                                <td><?php echo $row->gender; ?></td>
-                                <td><?php echo $row->address; ?></td>
-                                <td><?php echo $row->ptype; ?></td>
-                                <td><img src="Uploads/<?php echo $row->file; ?>" height=100px width=80px></td>
+                                <tr>
+                                    <td><?php echo $row->id; ?></td>
+                                    <td><?php echo $row->name; ?></td>
+                                    <td><?php echo $row->surname; ?></td>
+                                    <td><?php echo $row->email; ?></td>
+                                    <td><?php echo $row->date; ?></td>
+                                    <td><?php echo $row->gender; ?></td>
+                                    <td><?php echo $row->address; ?></td>
+                                    <td><?php echo $row->ptype; ?></td>
+                                    <td><img src="Uploads/<?php echo $row->file; ?>" height=100px width=80px></td>
 
 
 
 
-                                <?php if($_SESSION['utype']==0){echo "<td> 
-                 <a href='Edit.php?id=" . $row->id . "' class='.btn-sm btn-outline-info mr-2'>Edit</a>"."  "."<a href='delete.php?deleteuser=" . $row->id . "' class='.btn-sm btn-outline-danger mr-2'>Delete</a> </td>
-                </tr>"; } ?>
+                                    <?php if ($_SESSION['utype'] == 0) {
+                                        echo "<td> 
+                 <a href='Edit.php?id=" . $row->id . "' class='.btn-sm btn-outline-info mr-2'>Edit</a>" . "  " . "<a href='delete.php?deleteuser=" . $row->id . "' class='.btn-sm btn-outline-danger mr-2'>Delete</a> </td>
+                </tr>";
+                                    } ?>
 
-                             
+
+
+                                <?php
+
+                            endforeach;
+                        }
+                    } else {
+                        // require_once 'search_db.php';
+                        $data = [
+                            'keyword' => $_POST['keyword']
+
+                        ];
+                        // $query = $source->Query("SELECT * FROM `users` WHERE utype=1");
+                        $keyword = $_POST['keyword'];
+                        $source->Query("SELECT * FROM `users` WHERE `name` LIKE ? and utype=1 or `surname` LIKE ? or `ptype` LIKE ? ",[$keyword,$keyword,$keyword]);
+                        $details = $source->FetchAll();
+                        $numrow = $source->CountRows();
+
+                        if ($numrow > 0) {
+                            foreach ($details as $row) :
+
+                                ?>
+                                <tr>
+                                    <td><?php echo $row->id; ?></td>
+                                    <td><?php echo $row->name; ?></td>
+                                    <td><?php echo $row->surname; ?></td>
+                                    <td><?php echo $row->email; ?></td>
+                                    <td><?php echo $row->date; ?></td>
+                                    <td><?php echo $row->gender; ?></td>
+                                    <td><?php echo $row->address; ?></td>
+                                    <td><?php echo $row->ptype; ?></td>
+                                    <td><img src="Uploads/<?php echo $row->file; ?>" height=100px width=80px></td>
+
+
+
+
+                                    <?php if ($_SESSION['utype'] == 0) {
+                                        echo "<td> 
+                 <a href='Edit.php?id=" . $row->id . "' class='.btn-sm btn-outline-info mr-2'>Edit</a>" . "  " . "<a href='delete.php?deleteuser=" . $row->id . "' class='.btn-sm btn-outline-danger mr-2'>Delete</a> </td>
+                </tr>";
+                                    } ?>
+
+
+
                         <?php
 
-                        endforeach;
+                            endforeach;
+                        }
                     }
                         ?>
                 </tbody>
@@ -102,15 +152,3 @@ if (!isset($_SESSION['username'])) {
 </body>
 
 </html>
-
-
-
-
-
-
-
-
-
-
-
-

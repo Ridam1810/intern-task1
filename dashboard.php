@@ -150,7 +150,7 @@ include "init.php";
 
 
 
-    <section class="newsletter">
+    <!-- <section class="newsletter">
 
       <h2> Subscribe to Newsletter</h2>
 
@@ -160,7 +160,7 @@ include "init.php";
         <button>Send Now</button>
       </div>
 
-    </section>
+    </section> -->
 
 
 
@@ -170,19 +170,18 @@ include "init.php";
 
       <div>
 
-        <p style="color: #1480EC;">me</p>
-        <p style="color: #043C75;">dic</p>
-      </div>
+        <p style="color: #1480EC;">ICDDR</p>
+        <p style="color: #043C75;">,B</p>
+      </div><br><br><br>
 
       <ul>
-        <li><a href="#">Home</a></li>
+        <li><a href="./dashboard.php">Home</a></li>
         <li><a href="#">About</a></li>
         <li><a href="#">Services</a></li>
-        <li><a href="#">Community</a></li>
         <li><a href="#">Contact</a></li>
       </ul>
 
-      <span>© 2022. Medic. All Rights Reserved.</span>
+     
 
     </footer>
 

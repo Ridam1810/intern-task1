@@ -105,14 +105,15 @@
           ?>
 
             <a href="./register.php" class="nav-item nav-link">Register Admin</a>
-            <a href="./list.php" class="nav-item nav-link">Employees</a>
-            <a href="./index1.php" class="nav-item nav-link">Register</a>
-            <a href="./guestentry.php" class="nav-item nav-link">Services</a>
-            <a href="./patient.php" class="nav-item nav-link">Patients</a>
+            <a href="./list.php" class="nav-item nav-link"> Employees</a>
+            <a href="./index1.php" class="nav-item nav-link"> Employee Register</a>
+            <a href="./guestentry.php" class="nav-item nav-link"> Services</a>
+            <a href="./patient.php" class="nav-item nav-link"> Patients</a>
+            <a href="./doc_list.php" class="nav-item nav-link"> Appointment</a>
 
 
-            <a href="./about.html" class="nav-item nav-link">About</a>
-            <a href="./contact.php" class="nav-item nav-link">Contact</a>
+            <a href="./about.html" class="nav-item nav-link"> About</a>
+            <a href="./contact.php" class="nav-item nav-link"> Contact</a>
 
           <?php } else if ($_SESSION['utype'] == 1 && isset($_SESSION['username'])) {
           ?>
@@ -120,12 +121,13 @@
             <a href="./list.php" class="nav-item nav-link">Employees</a>
             <a href="./guestentry.php" class="nav-item nav-link">Services</a>
             <a href="./patient.php" class="nav-item nav-link">Patients</a>
+            <a href="./doc_list.php" class="nav-item nav-link">Appointment</a>
             <a href="./about.html" class="nav-item nav-link">About</a>
             <a href="./contact.php" class="nav-item nav-link">Contact</a>
 
           <?php } else {
           ?>
-
+<a href="./doc_list.php" class="nav-item nav-link">Appointment</a>
 
           <?php }
 
