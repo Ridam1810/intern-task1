@@ -126,7 +126,7 @@ if (!isset($_SESSION['username'])) {
                                     <td><?php echo $row->gender; ?></td>
                                     <td><?php echo $row->address; ?></td>
                                     <td><?php echo $row->ptype; ?></td>
-                                    <td><img src="Uploads/<?php echo $row->file; ?>" height=100px width=80px></td>
+                                    <td><img src="Uploads/<?php echo $row->file; ?>" height=250px width=200px></td>
 
 
 

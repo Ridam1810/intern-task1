@@ -4,14 +4,14 @@
 include "init.php";
 include "validation.php";
 
-if ($_SESSION['utype']!=0 && !isset($_SESSION['username'])) {
+if ($_SESSION['utype'] != 0 && !isset($_SESSION['username'])) {
   header("Location: login.php");
 }
 
 if (isset($_POST['submit'])) {
-  
-    $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-	$generator = substr(str_shuffle($chars), 0, 8);
+
+  $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  $generator = substr(str_shuffle($chars), 0, 8);
 
 
 
@@ -53,55 +53,71 @@ if (isset($_POST['submit'])) {
   }
 
 
-    $data = [
-      'name' => $_POST['name'],
-      'surname' => $_POST['surname'],
-      'email' => $_POST['email'],
-      'date' => $_POST['date'],
-      'ptype' => $_POST['ptype'],
-      'file' => $fileNameNew,
-      'address' => $_POST['address'],
-      'gender' => $_POST['gender'],
-      'password' => 	$generator,
-      'utype' => $_POST['utype']
-      
-    ];
+  $data = [
+    'name' => $_POST['name'],
+    'surname' => $_POST['surname'],
+    'email' => $_POST['email'],
+    'date' => $_POST['date'],
+    'ptype' => $_POST['ptype'],
+    'file' => $fileNameNew,
+    'address' => $_POST['address'],
+    'gender' => $_POST['gender'],
+    'password' =>   $generator,
+    'utype' => $_POST['utype']
+
+  ];
 
 
 
-    // foreach ($data['tech'] as $chk1) {
-    //   $chk .= $chk1 . ",";
-    // }
+  // foreach ($data['tech'] as $chk1) {
+  //   $chk .= $chk1 . ",";
+  // }
+  $query = $source->Query("Select * FROM users where email='" . $_POST['email'] . "'");
+  $result = $source->SingleRow();
+
+
+
+  if (!$result) {
+
     if ($source->Query(
       "INSERT INTO `users` (name,surname,email,date,gender,address,ptype,file,utype,password) VALUES (?,?,?,?,?,?,?,?,?,?)",
       [$data['name'], $data['surname'], $data['email'], $data['date'], $data['gender'], $data['address'], $data['ptype'], $data['file'], $data['utype'], $data['password']]
     )) {
-    }
-
-    $to = $_POST['email']; // Receiver Email ID, Replace with your email ID
-	$subject = "Confirmation";
-	$message = "Your Account created succesfully as admin!" . "\n" . "Login information down below." . "\n" . "UserName :" . $_POST['username'] . "\n" . "Email :" . $_POST['email'] . "\n" . "Password :" . $data['password'];
-	$headers = "From: " . "rithyamforbe@gmail.com";
-	$_SESSION['regname'] = $_POST['username'];
-	if (mail($to, $subject, $message, $headers)) {
-		// header("Location: patient_confirmation.php");
+      $to = $_POST['email']; // Receiver Email ID, Replace with your email ID
+      $subject = "Confirmation";
+      $message = "Your Account created succesfully as admin!" . "\n" . "Login information down below." . "\n" . "UserName :" . $_POST['username'] . "\n" . "Email :" . $_POST['email'] . "\n" . "Password :" . $data['password'];
+      $headers = "From: " . "rithyamforbe@gmail.com";
+      $_SESSION['regname'] = $_POST['username'];
+      if (mail($to, $subject, $message, $headers)) {
+        // header("Location: patient_confirmation.php");
 
 
-		echo "
+        echo "
             <script type=\"text/javascript\">
             window.location.href = 'emp_regmsg.php';
             </script>
         ";
-		// echo RedirectURL('patient_confirmation.php');
-	} else {
-		// header("Location: error.php");
-		echo "
+        // echo RedirectURL('patient_confirmation.php');
+      } else {
+        // header("Location: error.php");
+        echo "
             <script type=\"text/javascript\">
             window.location.href = 'error.php';
             </script>
         ";
-	}
+      }
+      // echo "<script>alert('Wow! User Registration Completed.')</script>";
+      // // $username = "";
+      // // $email = "";
+      // // $_POST['password'] = "";
+      // // $_POST['cpassword'] = "";
+    } else {
+      echo "<script>alert('Woops! Something Wrong Went.')</script>";
+    }
+  } else {
+    echo "<script>alert('Woops! Email Already Exists.')</script>";
   }
+}
 
 ?>
 
@@ -123,11 +139,11 @@ if (isset($_POST['submit'])) {
   <!-- navbar -->
   <?php include 'splitfile/navbar.php' ?>
 
-	
+
 
   <div class="container-fluid">
     <div class="container">
-    <h1>Employee Registration</h1>
+      <h1>Employee Registration</h1>
       <form action="" method="POST" enctype="multipart/form-data">
         <div class="fdl" id="fdl1">
 
@@ -151,7 +167,7 @@ if (isset($_POST['submit'])) {
           <input type="email" name="email" placeholder="email address" required>
           <input type="text" name="address" placeholder="Address" required>
           <label for="speciality">Choose A speciality</label>
-          <select name="ptype" id="speciality" >
+          <select name="ptype" id="speciality">
             <option value="Allergy and Immunology">Allergy and Immunology</option>
             <option value="Anesthesiology">Anesthesiology</option>
             <option value="Dermatology">Dermatology</option>
