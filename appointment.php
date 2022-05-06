@@ -5,6 +5,7 @@ if (!isset($_SESSION)) {
 }
 include 'splitfile/navbar.php';
 include "init.php";
+
 $_SESSION['is_condition'] = false;
 error_reporting(E_ERROR | E_PARSE);
 
@@ -12,6 +13,7 @@ error_reporting(E_ERROR | E_PARSE);
 
 $query = $source->Query("Select * FROM users where id=?", [$_GET['id']]);
 $profile = $source->singleRow();
+// $newdoc=$profile->id;
 
 
 
@@ -28,10 +30,10 @@ $profile = $source->singleRow();
 // }
 
 if (isset($_POST['submit'])) {
-  $query = $source->Query("SELECT *  FROM `appointment` WHERE `docId` =". $profile->id );
+  // $query = $source->Query("SELECT *  FROM `appointment` WHERE `docId` =". $profile->id );
 
-  $all = $source->FetchAll();
-  $numrow = $source->CountRows();
+  // $all = $source->FetchAll();
+  // $numrow = $source->CountRows();
   // $query = $source->Query("Select * FROM users where id=".$profile->id. "AND date=".$_POST['date']);
   // $details = $source->FetchAll();
 $token=bin2hex(random_bytes(15)) ;
@@ -69,26 +71,29 @@ $token=bin2hex(random_bytes(15)) ;
   ];
   // `time` = ".$_POST['date'] ."AND `date` = ".$_POST['date'] ."AND 
   // $query = $source->Query("Select * FROM appointment where docId=".$profile->id."AND date=".$_POST['date']. "AND time=". $_POST['time']);
-  $query = $source->Query("SELECT *  FROM `appointment` WHERE `docId` =". $profile->id );
+  // $query = $source->Query("SELECT * FROM `appointment` WHERE `time` =". $_POST['time']." AND `date` = ".$_POST['date'] ." AND `docId` =". $newdoc);
 
-  $all = $source->SingleRow();
-  $numrow = $source->CountRows();
-if($all->date == $_POST['date'] && $all->time == $_POST['time']){
+  // // $all = $source->SingleRow();
+  // $numrow = $source->CountRows();
+  // SELECT * FROM `appointment` WHERE `time` = '9:00 am' AND `date` = '2022-05-05' AND `docId` = 50
+  $_SESSION['time'] = $_POST['time'];
+  $_SESSION['date'] = $_POST['date'];
+  $_SESSION['docId'] = $profile->id;
 
-  echo "
-            <script type=\"text/javascript\">
-            window.location.href = 'booked.php';
-            </script>
-        ";
+  include "appoinment_insert.php";
+//   if($_POST['docId'] ==("SELECT * FROM `appointment` WHERE `docId` =". $profile->id)){
+// if(($_POST['docId'] ==("SELECT * FROM `appointment` WHERE `time` =". $_POST['time']." AND `date` = ". $_POST['date'] ." AND `docId` =". $profile->id)) && ($_POST['time'] ==("SELECT * FROM `appointment` WHERE `time` =". $_POST['time']." AND `date` = ". $_POST['date'] ." AND `docId` =". $profile->id)) && ($_POST['date'] ==("SELECT * FROM `appointment` WHERE `time` =". $_POST['time']." AND `date` = ". $_POST['date'] ." AND `docId` =". $profile->id))){
 
-}else{
 
-  if ($source->Query(
-    "INSERT INTO `appointment` (docId,doc,docEmail,time,patientName,date,patientEmail,status) VALUES (?,?,?,?,?,?,?,?)",
-    [$profile->id, $profile->name, $profile->email, $_POST['time'], $_SESSION['username'], $_POST['date'],$_SESSION['email'], $data['status']]
-  )) {
-  }
-}
+// }
+// else{
+
+//   if ($source->Query(
+//     "INSERT INTO `appointment` (docId,doc,docEmail,time,patientName,date,patientEmail,status) VALUES (?,?,?,?,?,?,?,?)",
+//     [$profile->id, $profile->name, $profile->email, $_POST['time'], $_SESSION['username'], $_POST['date'],$_SESSION['email'], $data['status']]
+//   )) {
+//   }
+// }
   // // foreach ($data['tech'] as $chk1) {
   // //   $chk .= $chk1 . ",";
   // // 
@@ -183,7 +188,7 @@ if($all->date == $_POST['date'] && $all->time == $_POST['time']){
         // $newdate = date("Y-m-d G:i:s",strtotime ( '+1 day' , strtotime ( $date ) )) ;
         // echo $newdate;
         ?></option>
-        <option value="<?php  $n =date("Y-m-d", strtotime ('+1 day', strtotime($n)));
+        <option value="<?php  $n =date("Y-m-d",strtotime ('+1 day', strtotime($n)));
         echo $n;
         // $date = "Sun, 01 May 2022 12:40:00 +880";
         // $newdate = date("Y-m-d G:i:s",strtotime ( '+1 day' , strtotime ( $date ) )) ;
