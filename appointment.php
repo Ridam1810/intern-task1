@@ -36,7 +36,7 @@ if (isset($_POST['submit'])) {
   // $numrow = $source->CountRows();
   // $query = $source->Query("Select * FROM users where id=".$profile->id. "AND date=".$_POST['date']);
   // $details = $source->FetchAll();
-$token=bin2hex(random_bytes(15)) ;
+  $token = bin2hex(random_bytes(15));
 
   //   // $chk = '';
   //   $valid= new UserValidation($_POST);
@@ -81,19 +81,19 @@ $token=bin2hex(random_bytes(15)) ;
   $_SESSION['docId'] = $profile->id;
 
   include "appoinment_insert.php";
-//   if($_POST['docId'] ==("SELECT * FROM `appointment` WHERE `docId` =". $profile->id)){
-// if(($_POST['docId'] ==("SELECT * FROM `appointment` WHERE `time` =". $_POST['time']." AND `date` = ". $_POST['date'] ." AND `docId` =". $profile->id)) && ($_POST['time'] ==("SELECT * FROM `appointment` WHERE `time` =". $_POST['time']." AND `date` = ". $_POST['date'] ." AND `docId` =". $profile->id)) && ($_POST['date'] ==("SELECT * FROM `appointment` WHERE `time` =". $_POST['time']." AND `date` = ". $_POST['date'] ." AND `docId` =". $profile->id))){
+  //   if($_POST['docId'] ==("SELECT * FROM `appointment` WHERE `docId` =". $profile->id)){
+  // if(($_POST['docId'] ==("SELECT * FROM `appointment` WHERE `time` =". $_POST['time']." AND `date` = ". $_POST['date'] ." AND `docId` =". $profile->id)) && ($_POST['time'] ==("SELECT * FROM `appointment` WHERE `time` =". $_POST['time']." AND `date` = ". $_POST['date'] ." AND `docId` =". $profile->id)) && ($_POST['date'] ==("SELECT * FROM `appointment` WHERE `time` =". $_POST['time']." AND `date` = ". $_POST['date'] ." AND `docId` =". $profile->id))){
 
 
-// }
-// else{
+  // }
+  // else{
 
-//   if ($source->Query(
-//     "INSERT INTO `appointment` (docId,doc,docEmail,time,patientName,date,patientEmail,status) VALUES (?,?,?,?,?,?,?,?)",
-//     [$profile->id, $profile->name, $profile->email, $_POST['time'], $_SESSION['username'], $_POST['date'],$_SESSION['email'], $data['status']]
-//   )) {
-//   }
-// }
+  //   if ($source->Query(
+  //     "INSERT INTO `appointment` (docId,doc,docEmail,time,patientName,date,patientEmail,status) VALUES (?,?,?,?,?,?,?,?)",
+  //     [$profile->id, $profile->name, $profile->email, $_POST['time'], $_SESSION['username'], $_POST['date'],$_SESSION['email'], $data['status']]
+  //   )) {
+  //   }
+  // }
   // // foreach ($data['tech'] as $chk1) {
   // //   $chk .= $chk1 . ",";
   // // 
@@ -167,57 +167,57 @@ $token=bin2hex(random_bytes(15)) ;
     <form action=" " method="post" enctype="multipart/form-data">
 
       <div class="fdl">
-      <label for="speciality">Doctor's Name</label>
-      <input type="name"  name="name" value="<?php echo $profile->name; ?>" readonly>
-      <label for="speciality">Doctor's Speciality</label>
-      <input type="name"  name="name" value="<?php echo $profile->ptype; ?>" readonly>
-      <label for="speciality">Choose A Date</label>
-      <select name="date" id="speciality">
-        <option value="<?php 
-        $t = date('Y-m-d');
-        echo $t;
-        // $date = "Sun, 01 May 2022 12:40:00 +880";
-        // $newdate = date("Y-m-d G:i:s",strtotime ( '+1 day' , strtotime ( $date ) )) ;
-        // echo $newdate;
-        ?>
-        "><?php 
-       
-        echo $t;
-        $n=$t;
-        // $date = "Sun, 01 May 2022 12:40:00 +880";
-        // $newdate = date("Y-m-d G:i:s",strtotime ( '+1 day' , strtotime ( $date ) )) ;
-        // echo $newdate;
-        ?></option>
-        <option value="<?php  $n =date("Y-m-d",strtotime ('+1 day', strtotime($n)));
-        echo $n;
-        // $date = "Sun, 01 May 2022 12:40:00 +880";
-        // $newdate = date("Y-m-d G:i:s",strtotime ( '+1 day' , strtotime ( $date ) )) ;
-        // echo $newdate;
-        ?>"><?php 
-        echo $n;
-        // $date = "Sun, 01 May 2022 12:40:00 +880";
-        // $newdate = date("Y-m-d G:i:s",strtotime ( '+1 day' , strtotime ( $date ) )) ;
-        // echo $newdate;
-        ?></option>
-        
-      </select>
+        <label for="speciality">Doctor's Name</label>
+        <input type="name" name="name" value="<?php echo $profile->name; ?>" readonly>
+        <label for="speciality">Doctor's Speciality</label>
+        <input type="name" name="name" value="<?php echo $profile->ptype; ?>" readonly>
+        <label for="speciality">Choose A Date</label>
+        <select name="date" id="speciality">
+          <option value="<?php
+                          $t = date('Y-m-d');
+                          // $_SESSION['curentdate']=
+                          echo $t;
+                          // $date = "Sun, 01 May 2022 12:40:00 +880";
+                          // $newdate = date("Y-m-d G:i:s",strtotime ( '+1 day' , strtotime ( $date ) )) ;
+                          // echo $newdate;
+                          ?>
+        "><?php
+
+          echo $t;
+          $n = $t;
+          // $date = "Sun, 01 May 2022 12:40:00 +880";
+          // $newdate = date("Y-m-d G:i:s",strtotime ( '+1 day' , strtotime ( $date ) )) ;
+          // echo $newdate;
+          ?></option>
+          <option value="<?php $n = date("Y-m-d", strtotime('+1 day', strtotime($n)));
+                          echo $n;
+                          // $date = "Sun, 01 May 2022 12:40:00 +880";
+                          // $newdate = date("Y-m-d G:i:s",strtotime ( '+1 day' , strtotime ( $date ) )) ;
+                          // echo $newdate;
+                          ?>"><?php
+            echo $n;
+            // $date = "Sun, 01 May 2022 12:40:00 +880";
+            // $newdate = date("Y-m-d G:i:s",strtotime ( '+1 day' , strtotime ( $date ) )) ;
+            // echo $newdate;
+            ?></option>
+
+        </select>
 
         <label for="name">Available Time</label>
         <select name="time" id="speciality">
-        <option value="9:00 am">9:00 am</option>
-        <option value="10:00 am">10:00 am</option>
-        <option value="11:00 am">11:00 am</option>
-        <option value="01:00 pm">01:00 pm</option>
-        <option value="02:00 pm">02:00 pm</option>
-        <option value="03:00 pm">03:00 pm</option>
-        
-      </select>
-        
-        
+          <option value="9:00 am">9:00 am</option>
+          <option value="10:00 am">10:00 am</option>
+          <option value="11:00 am">11:00 am</option>
+          <option value="01:00 pm">01:00 pm</option>
+          <option value="02:00 pm">02:00 pm</option>
+          <option value="03:00 pm">03:00 pm</option>
+
+        </select>
+
+
         <input type="submit" name="submit" value="submit" class="btn btn-outline-primary">
       </div>
 
-      
 
 
 
@@ -226,16 +226,17 @@ $token=bin2hex(random_bytes(15)) ;
 
 
 
-     
+
+
 
       <label for="message"></label>
       <!-- <textarea name="message" id="message" cols="30" rows="4" placeholder="Write down your messages here" required></textarea> -->
 
-     
+
       <!-- <label for="checkbox" id="cbtext"><input type="checkbox" id="checkbox" required>I agree to the <a href="t&c.html">terms of service</a> and <a href="t&c.html">privacy policy</a> .</label> -->
 
       <!-- <button id="submit" type="submit" name="submit" value="submit">Submit</button> -->
-      
+
     </form>
   </div>
 

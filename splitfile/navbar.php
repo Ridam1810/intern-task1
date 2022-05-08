@@ -81,6 +81,8 @@
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <script src="js/bootstrap.bundle.min.js"></script>
   <link rel="stylesheet" href="style/css_responsive.css">
+  <link rel="stylesheet" href="style/dropdown.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
@@ -104,12 +106,30 @@
 
           ?>
 
-            <a href="./register.php" class="nav-item nav-link">Register Admin</a>
+            <!-- <a href="./register.php" class="nav-item nav-link">Register Admin</a> -->
             <a href="./list.php" class="nav-item nav-link"> Employees</a>
-            <a href="./index1.php" class="nav-item nav-link"> Employee Register</a>
-            <a href="./guestentry.php" class="nav-item nav-link"> Services</a>
+            <!-- <a href="./index1.php" class="nav-item nav-link"> Employee Register</a> -->
+            <!-- <a href="./guestentry.php" class="nav-item nav-link"> Services</a> -->
             <a href="./patient.php" class="nav-item nav-link"> Patients</a>
-            <a href="./doc_list.php" class="nav-item nav-link"> Appointment</a>
+            <!-- <a href="./doc_list.php" class="nav-item nav-link"> Appointment</a> -->
+            <li class="nav-item dropdown">
+		   <a class="nav-link  dropdown-toggle" href="#" data-bs-toggle="dropdown">  Appointment  </a>
+		    <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="./doc_list.php"> Get an Appointment </a></li>
+			  <li><a class="dropdown-item" href="./appointment_schedule.php"> Appointment Schedule</a></li>
+			  
+		    </ul>
+		</li>
+
+
+            <li class="nav-item dropdown">
+		   <a class="nav-link  dropdown-toggle" href="#" data-bs-toggle="dropdown">  Register  </a>
+		    <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="./register.php"> Admin Register </a></li>
+			  <li><a class="dropdown-item" href="./index1.php"> Employee Register</a></li>
+			  <li><a class="dropdown-item" href="./guestentry.php"> Patient Register </a></li>
+		    </ul>
+		</li>
 
 
             <a href="./about.html" class="nav-item nav-link"> About</a>

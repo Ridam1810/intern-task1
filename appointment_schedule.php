@@ -47,18 +47,14 @@ if (!isset($_SESSION['username'])) {
 
                 <thead>
                     <tr>
-                        <!-- <th class="col-1">ID</th> -->
-                        <th class="col-1">Name</th>
-                        <th class="col-1">SurName</th>
-                        <th class="col-1">Email</th>
-                        <th class="col-1">Date</th>
-                        <th class="col-1">Gender</th>
-                        <th class="col-1">Address</th>
-                        <th class="col-1">Speciality</th>
-                        <th class="col-1">Picture</th>
-                        <?php  if($_SESSION['utype'] == 0 || $_SESSION['utype'] == 1){
-                        echo "<th class=.col-1>Assigned</th>";}?>
-                        <!-- <th class="col-1">Assigned</th> -->
+                        <th class="col-2">ID</th>
+                        <th class="col-2">Doctor's Name</th>
+                        <th class="col-2">Doctor's Email</th>
+                        <th class="col-2">Time</th>
+                        <th class="col-2">Patient's Name</th>
+                        <th class="col-2">Date</th>
+                        <th class="col-2">Patient's Email</th>
+
 
 
                     </tr>
@@ -67,7 +63,7 @@ if (!isset($_SESSION['username'])) {
                     <?php
 
                     if (!isset($_POST['submit'])) {
-                        $query = $source->Query("SELECT * FROM `users` WHERE utype=1");
+                        $query = $source->Query("Select * FROM appointment where docId=?", [$_GET['id']]);
                         $details = $source->FetchAll();
                         $numrow = $source->CountRows();
 
@@ -76,39 +72,23 @@ if (!isset($_SESSION['username'])) {
 
                     ?>
                                 <tr>
-                                    
-                                    <td><?php echo $row->name; ?></td>
-                                    <td><?php echo $row->surname; ?></td>
-                                    <td><?php echo $row->email; ?></td>
+                                    <td><?php echo $row->id; ?></td>
+                                    <td><?php echo $row->doc; ?></td>
+                                    <td><?php echo $row->docEmail; ?></td>
+                                    <td><?php echo $row->time; ?></td>
+                                    <td><?php echo $row->patientName; ?></td>
                                     <td><?php echo $row->date; ?></td>
-                                    <td><?php echo $row->gender; ?></td>
-                                    <td><?php echo $row->address; ?></td>
-                                    <td><?php echo $row->ptype; ?></td>
-                                    <td><img src="Uploads/<?php echo $row->file; ?>" height=100px width=80px></td>
-                                    <?php $source->Query("SELECT *  FROM `appointment` WHERE `docId` = $row->id" );
-                        // SELECT *  FROM `users` WHERE `surname` LIKE '%he%'
-                        $report = $source->FetchAll();
-                        $numreport = $source->CountRows();
-                        if(($_SESSION['utype'] == 0 || $_SESSION['utype'] == 1) && ($row->id == $_SESSION['idno'] || $_SESSION['utype'] ==0)){?>
-                          <td><?php echo $numreport; ?></td>
-                        <?php  
-                        }
-                        ?>
-
-                        <!-- echo "<td class=.col-1>Assigned</td>";}?> -->
+                                    <td><?php echo $row->patientEmail; ?></td>
 
 
 
-                                    <?php  
-                                        echo "<td> 
-                 <a href='appointment.php?id=" . $row->id . "' class='.btn-sm btn-outline-info mr-1'>Get Appointment</a>" . "  " . " </td>
-                ";
-                if(($_SESSION['utype'] == 0 || $_SESSION['utype'] == 1) && ($row->id == $_SESSION['idno'] || $_SESSION['utype'] ==0)){
-                echo "<td> 
-                 <a href='appointment_schedule.php?id=" . $row->id . "' class='.btn-sm btn-outline-info mr-1'>View Appointments</a>" . "  " . " </td>
-                </tr>";
-                }
-                                     ?>
+
+
+                                    <?php if ($_SESSION['utype'] == 0) {
+                                        //                         echo "<td> 
+                                        //  <a href='Edit.php?id=" . $row->id . "' class='.btn-sm btn-outline-info mr-2'>Edit</a>" . "  " . "<a href='delete.php?deleteuser=" . $row->id . "' class='.btn-sm btn-outline-danger mr-2'>Delete</a> </td>
+                                        // </tr>";
+                                    } ?>
 
 
 
@@ -124,17 +104,19 @@ if (!isset($_SESSION['username'])) {
                         ];
                         // $query = $source->Query("SELECT * FROM `users` WHERE utype=1");
                         $keyword = $_POST['keyword'];
-                        $source->Query("SELECT *  FROM `users` WHERE `name` LIKE '%$keyword%' OR `ptype` LIKE '%$keyword%' " );
+                        // $source->Query("SELECT * FROM `users` WHERE `name` LIKE ? and utype=1 or `surname` LIKE ? or `ptype` LIKE ? ",[$keyword,$keyword,$keyword]);
+                        $source->Query("SELECT *  FROM `appointnment` WHERE `patientName` LIKE '%$keyword%' OR `patientEmail` LIKE '%$keyword%' OR `date` LIKE '%$keyword%' ");
+                        // SELECT *  FROM `users` WHERE `surname` LIKE '%he%'
                         $details = $source->FetchAll();
-
                         $numrow = $source->CountRows();
+
 
                         if ($numrow > 0) {
                             foreach ($details as $row) :
 
                                 ?>
                                 <tr>
-                                  
+                                    <td><?php echo $row->id; ?></td>
                                     <td><?php echo $row->name; ?></td>
                                     <td><?php echo $row->surname; ?></td>
                                     <td><?php echo $row->email; ?></td>
@@ -142,16 +124,16 @@ if (!isset($_SESSION['username'])) {
                                     <td><?php echo $row->gender; ?></td>
                                     <td><?php echo $row->address; ?></td>
                                     <td><?php echo $row->ptype; ?></td>
-                                    <td><img src="Uploads/<?php echo $row->file; ?>" height=100px width=80px></td>
+                                    <td><img src="Uploads/<?php echo $row->file; ?>" height=250px width=200px></td>
 
 
 
 
-                                    <?php if ($_SESSION['utype'] == 0) {
-                                        echo "<td> 
-                 <a href='appointment.php?id=" . $row->id . "' class='.btn-sm btn-outline-info mr-2'>Get Appointment</a>" . "  " . " </td>
-                </tr>";
-                                    } ?>
+                                    <!-- <?php if ($_SESSION['utype'] == 0) {
+                                                //                         echo "<td> 
+                                                //  <a href='Edit.php?id=" . $row->id . "' class='.btn-sm btn-outline-info mr-2'>Edit</a>" . "  " . "<a href='delete.php?deleteuser=" . $row->id . "' class='.btn-sm btn-outline-danger mr-2'>Delete</a> </td>
+                                                // </tr>";
+                                            } ?> -->
 
 
 

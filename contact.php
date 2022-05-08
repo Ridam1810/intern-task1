@@ -95,7 +95,7 @@ if (!isset($_SESSION['username'])) {
                     ?>
                             <tr>
                                 <td><?php echo $row->id; ?></td>
-                                <td><?php echo "Employee"; ?></td>
+                                <td><?php echo "Doctor"; ?></td>
                                 <td><?php echo $row->name; ?></td>
                                 <td><?php echo $row->email; ?></td>
                                 
