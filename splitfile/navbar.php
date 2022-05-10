@@ -108,28 +108,35 @@
 
             <!-- <a href="./register.php" class="nav-item nav-link">Register Admin</a> -->
             <a href="./list.php" class="nav-item nav-link"> Employees</a>
+            <a href="./my_entry.php" class="nav-item nav-link">My Entry</a>
             <!-- <a href="./index1.php" class="nav-item nav-link"> Employee Register</a> -->
-            <!-- <a href="./guestentry.php" class="nav-item nav-link"> Services</a> -->
+            <a href="./guestentry.php" class="nav-item nav-link"> Services</a>
             <a href="./patient.php" class="nav-item nav-link"> Patients</a>
             <!-- <a href="./doc_list.php" class="nav-item nav-link"> Appointment</a> -->
             <li class="nav-item dropdown">
-		   <a class="nav-link  dropdown-toggle" href="#" data-bs-toggle="dropdown">  Appointment  </a>
-		    <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="./doc_list.php"> Get an Appointment </a></li>
-			  <li><a class="dropdown-item" href="./appointment_schedule.php"> Appointment Schedule</a></li>
-			  
-		    </ul>
-		</li>
+              <a class="nav-link  dropdown-toggle" href="#" data-bs-toggle="dropdown"> Appointment </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="./doc_list.php"> Get an Appointment </a></li>
+                <li><a class="dropdown-item"> My Appointments </a></li>
+
+                <?php
+                //SOMETHING DONE
+                // GOTO (http://localhost/intern-task1/appointment_schedule.php?id=50);
+                //  echo "<script>window.location = 'http://localhost/intern-task1/appointment_schedule.php?id=50'</script>";
+                ?>
+
+              </ul>
+            </li>
 
 
             <li class="nav-item dropdown">
-		   <a class="nav-link  dropdown-toggle" href="#" data-bs-toggle="dropdown">  Register  </a>
-		    <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="./register.php"> Admin Register </a></li>
-			  <li><a class="dropdown-item" href="./index1.php"> Employee Register</a></li>
-			  <li><a class="dropdown-item" href="./guestentry.php"> Patient Register </a></li>
-		    </ul>
-		</li>
+              <a class="nav-link  dropdown-toggle" href="#" data-bs-toggle="dropdown"> Register </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="./register.php"> Admin Register </a></li>
+                <li><a class="dropdown-item" href="./index1.php"> Employee Register</a></li>
+                <li><a class="dropdown-item" href="./patient_reg.php"> Patient Register </a></li>
+              </ul>
+            </li>
 
 
             <a href="./about.html" class="nav-item nav-link"> About</a>
@@ -139,6 +146,7 @@
           ?>
 
             <a href="./list.php" class="nav-item nav-link">Employees</a>
+            <a href="./my_entry.php" class="nav-item nav-link">My Entry</a>
             <a href="./guestentry.php" class="nav-item nav-link">Services</a>
             <a href="./patient.php" class="nav-item nav-link">Patients</a>
             <a href="./doc_list.php" class="nav-item nav-link">Appointment</a>
@@ -147,7 +155,9 @@
 
           <?php } else {
           ?>
-<a href="./doc_list.php" class="nav-item nav-link">Appointment</a>
+            <a href="./doc_list.php" class="nav-item nav-link">Appointment</a>
+            <a href="./guestentry.php" class="nav-item nav-link">Services</a>
+            <a href="./my_entry.php" class="nav-item nav-link">My Entry</a>
 
           <?php }
 

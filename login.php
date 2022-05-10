@@ -63,6 +63,8 @@ if (isset($_POST['submit'])) {
 		$_SESSION['username'] = $result->name;
 		$_SESSION['email'] = $result->email;
 		$_SESSION['utype'] = $result->utype;
+		$_SESSION['phone']=$result->phone;
+		$_SESSION['add']=$result->address;
 
 
 

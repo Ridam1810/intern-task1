@@ -47,7 +47,7 @@ include "init.php";
                         <th class="col-1">Phone</th>
                         <th class="col-1">Address</th>
                         <th class="col-1">Problem type</th>
-                        <th class="col-1">message</th>
+                        <th class="col-1">Problem Detail</th>
                         <th class="col-1">picture</th>
                         <th class="col-1">Action</th>
 
@@ -66,7 +66,7 @@ include "init.php";
                     ?>
                             <tr>
                                 <td><?php echo $row->id; ?></td>
-                                <td><?php echo $row->fullname; ?></td>
+                                <td><?php echo $row->name; ?></td>
                                 <td><?php echo $row->email; ?></td>
                                 <td><?php echo $row->phone; ?></td>
                                 <td><?php echo $row->address; ?></td>
@@ -77,11 +77,24 @@ include "init.php";
 
 
 
+                                <!-- if($_SESSION['utype']==1){ 
+                                echo "<td> 
+                 <a href='response.php?id=" . $row->id . "' class='.btn-sm btn-outline-info mr-2'>Response</a>"."  "; } -->
 
+                                <?php if(is_null($row->test_result)){
+                                echo "<td> 
+                 <a href='response.php?id=" . $row->id . "' class='.btn-sm btn-outline-info mr-2'>Response</a>"."  "; }
+                 else{
 
-                                <?php echo "<td> 
-                 <a href='response.php?id=" . $row->id . "' class='.btn-sm btn-outline-info mr-2'>Response</a>"."  "."<a href='deleteguest.php?deleteuser=" . $row->id . "' class='.btn-sm btn-outline-danger mr-2'>Delete</a> </td>
-                </tr>"; ?>
+                    echo "<td> 
+                 <a href='prescribe.php?id=" . $row->id . "' class='.btn-sm btn-outline-info mr-2'>Prescribe</a>"."  "; 
+                 echo "<td> 
+                 <a href='view_pdf.php?id=" . $row->id . "' class='.btn-sm btn-outline-info mr-2'>View Tests Results</a>"."  "; 
+                 }
+                 if($_SESSION['utype']==0){
+                    echo "<td> <a href='deleteguest.php?deleteuser=" . $row->id . "' class='.btn-sm btn-outline-danger mr-2'>Delete</a> </td>";
+
+                 }?></tr>
 
                         <?php
 
@@ -96,7 +109,7 @@ include "init.php";
                         ];
                         // $query = $source->Query("SELECT * FROM `users` WHERE utype=1");
                         $keyword = $_POST['keyword'];
-                        $source->Query("SELECT *  FROM `guest` WHERE `fullname` LIKE '%$keyword%' OR `ptype` LIKE '%$keyword%' " );
+                        $source->Query("SELECT *  FROM `guest` WHERE `name` LIKE '%$keyword%' OR `ptype` LIKE '%$keyword%' " );
                         $details = $source->FetchAll();
                         $numrow = $source->CountRows();
 
@@ -106,7 +119,7 @@ include "init.php";
                                 ?>
                                 <tr>
                                 <td><?php echo $row->id; ?></td>
-                                <td><?php echo $row->fullname; ?></td>
+                                <td><?php echo $row->name; ?></td>
                                 <td><?php echo $row->email; ?></td>
                                 <td><?php echo $row->phone; ?></td>
                                 <td><?php echo $row->address; ?></td>
@@ -117,11 +130,20 @@ include "init.php";
 
 
 
-                                    <?php if ($_SESSION['utype'] == 0) {
-                                        echo "<td> 
-                 <a href='Edit.php?id=" . $row->id . "' class='.btn-sm btn-outline-info mr-2'>Edit</a>" . "  " . "<a href='delete.php?deleteuser=" . $row->id . "' class='.btn-sm btn-outline-danger mr-2'>Delete</a> </td>
-                </tr>";
-                                    } ?>
+                                <?php if(is_null($row->test_result)){
+                                echo "<td> 
+                 <a href='response.php?id=" . $row->id . "' class='.btn-sm btn-outline-info mr-2'>Response</a>"."  "; }
+                 else{
+
+                    echo "<td> 
+                 <a href='prescribe.php?id=" . $row->id . "' class='.btn-sm btn-outline-info mr-2'>Prescribe</a>"."  "; 
+                 echo "<td> 
+                 <a href='view_pdf.php?id=" . $row->id . "' class='.btn-sm btn-outline-info mr-2'>View Tests Results</a>"."  "; 
+                 }
+                 if($_SESSION['utype']==0){
+                    echo "<td> <a href='deleteguest.php?deleteuser=" . $row->id . "' class='.btn-sm btn-outline-danger mr-2'>Delete</a> </td>";
+
+                 }?></tr>
 
 
 

@@ -48,12 +48,12 @@ if (!isset($_SESSION['username'])) {
                 <thead>
                     <tr>
                         <th class="col-1">ID</th>
-                        <th class="col-1">Name</th>
+                        <th class="col-2">Name</th>
                         <th class="col-1">SurName</th>
                         <th class="col-1">Email</th>
                         <th class="col-1">Date</th>
                         <th class="col-1">Gender</th>
-                        <th class="col-1">Address</th>
+                        <th class="col-2">Address</th>
                         <th class="col-1">Speciality</th>
                         <th class="col-1">Picture</th>
 

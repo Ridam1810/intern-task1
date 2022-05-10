@@ -92,7 +92,10 @@ if (!isset($_SESSION['username'])) {
                         if(($_SESSION['utype'] == 0 || $_SESSION['utype'] == 1) && ($row->id == $_SESSION['idno'] || $_SESSION['utype'] ==0)){?>
                           <td><?php echo $numreport; ?></td>
                         <?php  
-                        }
+                        } else {?>
+
+                            <td><?php echo " "; ?></td>
+                      <?php  }
                         ?>
 
                         <!-- echo "<td class=.col-1>Assigned</td>";}?> -->

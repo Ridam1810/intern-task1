@@ -80,14 +80,11 @@ if (!isset($_SESSION['username'])) {
                                     <td><?php echo $row->date; ?></td>
                                     <td><?php echo $row->patientEmail; ?></td>
 
-
-
-
-
+                                    
                                     <?php if ($_SESSION['utype'] == 0) {
-                                        //                         echo "<td> 
-                                        //  <a href='Edit.php?id=" . $row->id . "' class='.btn-sm btn-outline-info mr-2'>Edit</a>" . "  " . "<a href='delete.php?deleteuser=" . $row->id . "' class='.btn-sm btn-outline-danger mr-2'>Delete</a> </td>
-                                        // </tr>";
+                                        echo "<td> 
+                                         <a href='delete_appointments.php?deleteuser=" . $row->id . "' class='.btn-sm btn-outline-danger mr-2'>Delete</a> </td>
+                                        </tr>";
                                     } ?>
 
 
@@ -129,11 +126,11 @@ if (!isset($_SESSION['username'])) {
 
 
 
-                                    <!-- <?php if ($_SESSION['utype'] == 0) {
-                                                //                         echo "<td> 
-                                                //  <a href='Edit.php?id=" . $row->id . "' class='.btn-sm btn-outline-info mr-2'>Edit</a>" . "  " . "<a href='delete.php?deleteuser=" . $row->id . "' class='.btn-sm btn-outline-danger mr-2'>Delete</a> </td>
-                                                // </tr>";
-                                            } ?> -->
+                                    <?php if ($_SESSION['utype'] == 0) {
+                                        echo "<td> 
+                                                 <a href='delete_appointments.php?deleteuser=" . $row->id . "' class='.btn-sm btn-outline-danger mr-2'>Delete</a> </td>
+                                                </tr>";
+                                    } ?>
 
 
 

@@ -20,44 +20,59 @@ if (isset($_POST['submit'])) {
 
 
   $data = [
-    'response' => $_POST['response']
+    'response' => $_POST['response'],
+    'test_list' => $_POST['test_list']
 
   ];
-
-  if ($source->Query(
-    "UPDATE guest SET response=? where id=?",
-    [$data['response'], $_GET['id']]
-  )) {
-
-    $to = $profile->email; // Receiver Email ID, Replace with your email ID
-    $subject = "Prescription";
-    $message = "Name :" . $profile->fullname . "\n" . "Phone :" . $profile->phone . "\n" . "Address :" . $profile->address . "\n"  . "\n" . "\n" . "Wrote the following :" . $profile->ptype. "\n" . "\n" . "Doctor's response :".$_POST['response'];
-    $headers = "From: " . "rithyamforbe@gmail.com";
   
-    $_SESSION['regname'] = $_POST['fullname'];
-    $_SESSION['filename'] = $fileNameNew;
-  
-  
-    if (mail($to, $subject, $message, $headers)) {
-      // header("Location: patient_confirmation.php");
-  
-  
-      echo "
-              <script type=\"text/javascript\">
-              window.location.href = 'res_msg.php';
-              </script>
-          ";
-      // echo RedirectURL('patient_confirmation.php');
-    } else {
-      // header("Location: error.php");
-      echo "
-              <script type=\"text/javascript\">
-              window.location.href = 'error.php';
-              </script>
-          ";
-    }
+  foreach ($data['test_list'] as $chk1) {
+    
+    $chk .= $chk1 . ",";
   }
-}
+  $chk = rtrim($chk, ',');
+  $_SESSION['test_list'] = $chk;
+  $_SESSION['response'] = $_POST['response'];
+  $_SESSION['guestId'] = $profile->id;
+
+  include "reponse_insert.php";
+
+
+
+// UPDATE `guest` SET `response`='$data['response']',`test_list`='$data['test_list']' WHERE `id`='$_GET['id']';
+// echo $chk;exit();
+  // if ($source->Query(
+  //   "UPDATE `guest` SET `response`=".$_POST['response'].",`test_list`=".$chk." WHERE `id`=".$_GET['id']
+  // )) {
+
+  //   // $to = $profile->email; // Receiver Email ID, Replace with your email ID
+  //   // $subject = "Prescription";
+  //   // $message = "Name :" . $profile->fullname . "\n" . "Phone :" . $profile->phone . "\n" . "Address :" . $profile->address . "\n"  . "\n" . "\n" . "Wrote the following :" . $profile->ptype. "\n" . "\n" . "Doctor's response :".$_POST['response'];
+  //   // $headers = "From: " . "rithyamforbe@gmail.com";
+  
+  //   // $_SESSION['regname'] = $_POST['fullname'];
+  //   // $_SESSION['filename'] = $fileNameNew;
+  
+  
+  //   // if (mail($to, $subject, $message, $headers)) {
+  //   //   // header("Location: patient_confirmation.php");
+  
+  
+  //   //   echo "
+  //   //           <script type=\"text/javascript\">
+  //   //           window.location.href = 'res_msg.php';
+  //   //           </script>
+  //   //       ";
+  //   //   // echo RedirectURL('patient_confirmation.php');
+  //   } else {
+  //     // header("Location: error.php");
+  //     echo "
+  //             <script type=\"text/javascript\">
+  //             window.location.href = 'error.php';
+  //             </script>
+  //         ";
+  //   }
+  }
+
 
 // if (isset($_POST['hold'])){
 
@@ -116,19 +131,59 @@ if (isset($_POST['submit'])) {
 
   <div class="container">
 
-    <h1>Prescribe</h1>
+    <h1>Initial Response </h1>
 
     <form action="" method="post" enctype="multipart/form-data">
 
       <div class="fdl">
 
         <label for="name">Full Name</label>
-        <input id="name" name="fullname" type="text" value="<?php echo $profile->fullname; ?>" readonly>
+        <input id="name" name="name" type="text" value="<?php echo $profile->name; ?>" readonly>
 
         <label for="phone">Phone</label>
         <input id="phone" name="phone" type="tel" value="<?php echo $profile->phone; ?>" readonly>
         <label for="phone">Issues</label>
         <input id="message" name="message" type="message" value="<?php echo $profile->message; ?>" readonly>
+      
+      
+        <label for="speciality">Tests List</label>
+      <select name="test_list[]" id="speciality" multiple="multiple">
+        <option value="TC, DC, ESR, Hemoglibin(CBC)">TC, DC, ESR, Hemoglibin(CBC)</option>
+        <option value="B.T, C.T">B.T, C.T</option>
+        <option value="M.T. Test">M.T. Test</option>
+        <option value="Blood Sugar">Blood Sugar</option>
+        <option value="Blood Grouping">Blood Grouping</option>
+        <option value="HBs Ag">HBs Ag</option>
+        <option value="Serum creatinine">Serum creatinine</option>
+        <option value="VDRL">VDRL</option>
+        <option value="Urine For P.T.">Urine For P.T.</option>
+        <option value="Platelet Count">Platelet Count</option>
+        <option value="Dengue NS1">Dengue NS1</option>
+        <option value="Urine R|M|E">Urine R|M|E</option>
+       
+      </select>
+
+      <!-- <label for="speciality">Tests List</label>
+      <select   id="speciality" multiple="multiple">
+        <option name="test_list[]" value="Allergy and Immunology">Allergy and Immunology</option>
+        <option name="test_list[]" value="Anesthesiology">Anesthesiology</option>
+        <option name="test_list[]" value="Dermatology">Dermatology</option>
+        <option name="test_list[]" value="Diagnostic radiology">Diagnostic radiology</option>
+        <option name="test_list[]" value="Emergency medicine">Emergency medicine</option>
+        <option name="test_list[]" value="Family medicine">Family medicine</option>
+        <option name="test_list[]" value="Internal medicine">Internal medicine</option>
+        <option name="test_list[]" value="Medical genetics">Medical genetics</option>
+        <option name="test_list[]" value="Neurology">Neurology</option>
+        <option name="test_list[]" value="Nuclear medicine">Nuclear medicine</option>
+        <option name="test_list[]" value="Obstetrics and gynecology">Obstetrics and gynecology</option>
+        <option name="test_list[]" value="Ophthalmology">Ophthalmology</option>
+        <option name="test_list[]" value="Pathology">Pathology</option>
+        <option name="test_list[]" value="Pediatrics">Pediatrics</option>
+        <option name="test_list[]" value="Physical medicine and Rehabilitation">Physical medicine and Rehabilitation</option>
+        <option name="test_list[]" value="Preventive medicine">Preventive medicine</option>
+        <option name="test_list[]" value="Psychiatry">Psychiatry</option>
+        <option name="test_list[]" value="Urology">Urology</option>
+      </select> -->
 
 
         <label for="response">Reponse</label>

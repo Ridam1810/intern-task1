@@ -6,15 +6,15 @@ if (!isset($_SESSION)) {
 ?>
 
 <?php
-
+// require_once 'splitfile/navbar.php';
 include "init.php";
 
 
 // error_reporting(0);
 
-if (isset($_SESSION['username'])) {
-	header("Location: dashboard.php");
-}
+// if (isset($_SESSION['username'])) {
+// 	header("Location: dashboard.php");
+// }
 
 if (isset($_POST['submit'])) {
 	// echo $_POST['password'];exit();
@@ -104,7 +104,11 @@ if (isset($_POST['submit'])) {
 <body>
 	<div class="container">
 		<form action="" method="POST" class="login-email">
+			<?php if (isset($_SESSION['username'])) {?>
+				<p class="login-text" style="font-size: 2rem; font-weight: 800;">Register  Guest</p>
+				<?php  } else{ ?>
 			<p class="login-text" style="font-size: 2rem; font-weight: 800;">Register As Guest</p>
+			<?php  } ?>
 			<div class="input-group">
 				<input type="name" placeholder="Fullname" name="name" value="" required>
 			</div>
@@ -134,7 +138,11 @@ if (isset($_POST['submit'])) {
 				<!-- <button name="submit" class="btn">Login <a href="index1.php"></a></button> -->
 				<button type="submit" name="submit" class="btn">Register</button>
 			</div>
-			<p class="login-register-text"><a href="login.php">Login</a>.</p>
+			<?php if (isset($_SESSION['username'])) {?>
+				<p class="login-register-text"><a href="dashboard.php">Go Back</a>.</p>
+				<?php  } else{ ?>
+					<p class="login-register-text"><a href="login.php">Login</a>.</p>
+			<?php  } ?>
 		</form>
 	</div>
 

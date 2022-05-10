@@ -85,7 +85,7 @@ if (isset($_POST['submit'])) {
 
 
   $data = [
-    'fullname' => $_POST['fullname'],
+    'name' => $_POST['name'],
     'email' => $_POST['email'],
     'phone' => $_POST['phone'],
     'address' => $_POST['address'],
@@ -93,6 +93,9 @@ if (isset($_POST['submit'])) {
     'file' => $fileNameNew,
     //'file' => 'abc.jpg',
     'message' => $_POST['message'],
+    'response' => $_POST['response'],
+    'test_list' => $_POST['test_list'],
+    'guestId' => $_POST['guestId']
   ];
 
 
@@ -102,8 +105,8 @@ if (isset($_POST['submit'])) {
   // //   $chk .= $chk1 . ",";
   // // }
   if ($source->Query(
-    "INSERT INTO `guest` (fullname,email,phone,address,ptype,file,message) VALUES (?,?,?,?,?,?,?)",
-    [$data['fullname'], $data['email'], $data['phone'], $data['address'], $data['ptype'], $data['file'], $data['message']]
+    "INSERT INTO `guest` (name,email,phone,address,ptype,file,message,response,test_list,guestId) VALUES (?,?,?,?,?,?,?,?,?,?)",
+    [$data['name'], $data['email'], $data['phone'], $data['address'], $data['ptype'], $data['file'], $data['message'],$data['response'],$data['test_list'],$data['guestId']]
   )) {
   }
 
@@ -112,10 +115,10 @@ if (isset($_POST['submit'])) {
 
   $to = $_POST['email']; // Receiver Email ID, Replace with your email ID
   $subject = "Confirmation";
-  $message = "Name :" . $_POST['fullname'] . "\n" . "Phone :" . $_POST['phone'] . "\n" . "Address :" . $_POST['address'] . "\n" . "Problem Type :" . $_POST['ptype'] . "\n" . "\n" . "Wrote the following :" . "\n\n" . $_POST['message'];
+  $message = "Name :" . $_POST['name'] . "\n" . "Phone :" . $_POST['phone'] . "\n" . "Address :" . $_POST['address'] . "\n" . "Problem Type :" . $_POST['ptype'] . "\n" . "\n" . "Wrote the following :" . "\n\n" . $_POST['message'];
   $headers = "From: " . "rithyamforbe@gmail.com";
 
-  $_SESSION['regname'] = $_POST['fullname'];
+  $_SESSION['regname'] = $_POST['name'];
   $_SESSION['filename'] = $fileNameNew;
 
 
@@ -179,21 +182,28 @@ if (isset($_POST['submit'])) {
       <div class="fdl">
 
         <label for="name">Full Name</label>
-        <input id="name" name="fullname" type="text" placeholder="Alex Hunter" required>
-
+        <!-- <input id="name" name="fullname" type="text" placeholder="Alex Hunter" required> -->
+        <input id="name" type="name" name="name" value="<?php echo $_SESSION['username']; ?>" readonly>
         <label for="phone">Phone</label>
+        <?php if($_SESSION['utype']!=3) {?>
         <input id="phone" name="phone" type="tel" placeholder="+880-1787-748377" required>
+        <?php  } else{ ?>
+          <input id="phone" type="phone" name="phone" value="<?php echo $_SESSION['phone']; ?>" readonly>
 
-
+<?php  }?>
       </div>
 
       <div class="fdr">
 
         <label for="email">Email</label>
-        <input id="email" name="email" type="email" placeholder="alex.hunter@email.com" required>
+        <input id="email" name="email" type="email" value="<?php echo $_SESSION['email']; ?>" readonly>
 
         <label for="address">Address</label>
-        <input id="address" name="address" type="text" placeholder="Street" required>
+        <?php if ($_SESSION['utype']>0) {?>
+				<input id="address" type="address"  name="address" value="<?php echo $_SESSION['add']; ?>" readonly>
+				<?php  } else{ ?>
+          <input id="address" name="address" type="address" placeholder="Street" required>
+			<?php  } ?>
 
         <label for="formFileSm" class="form-label"></label>
         <input class="form-control form-control-sm" id="file" name="file" type="file" >
@@ -231,6 +241,9 @@ if (isset($_POST['submit'])) {
 
       <label for="message">Message</label>
       <textarea name="message" id="message" cols="30" rows="4" placeholder="Write down your messages here" required></textarea>
+      <input id="response" type="response" name="response" value="(Pending)" hidden>
+      <input id="test_list" type="test_list" name="test_list" value="(Pending)" hidden>
+      <input id="guestId" type="guestId" name="guestId" value="<?php echo $_SESSION['idno']; ?>" hidden>
 
       <br>
       <label for="checkbox" id="cbtext"><input type="checkbox" id="checkbox" required>I agree to the <a href="t&c.html">terms of service</a> and <a href="t&c.html">privacy policy</a> .</label>
