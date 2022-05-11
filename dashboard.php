@@ -41,8 +41,8 @@ include "init.php";
     <section class="intro">
       <div class="col1">
         <h2>A range of programs for healthcare</h2>
-        <h1>Special Touch</h1>
-        <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc et aliquet orci, non posuere
+        <h1>ICDDR,B</h1>
+        <span>A world in which more people survive and enjoy healthy lives
         <button id="myButton" class="float-left submit-button" >Submit Your Problem</button>
 
 <script type="text/javascript">
@@ -60,7 +60,7 @@ include "init.php";
 
 
 
-    <section class="service">
+    <!-- <section class="service">
       <h1> Our Services</h1>
       <p>We offfer complete healthcare to individuals with various health concers.</p>
       <div class="col1">
@@ -118,7 +118,7 @@ include "init.php";
         <span class="doctitle">Neorologist</span>
       </div>
 
-    </section>
+    </section> -->
 
 
     <section class="tstmnls">

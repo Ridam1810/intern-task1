@@ -139,7 +139,7 @@
             </li>
 
 
-            <a href="./about.html" class="nav-item nav-link"> About</a>
+            <!-- <a href="./about.php" class="nav-item nav-link"> About</a> -->
             <a href="./contact.php" class="nav-item nav-link"> Contact</a>
 
           <?php } else if ($_SESSION['utype'] == 1 && isset($_SESSION['username'])) {
@@ -150,7 +150,7 @@
             <a href="./guestentry.php" class="nav-item nav-link">Services</a>
             <a href="./patient.php" class="nav-item nav-link">Patients</a>
             <a href="./doc_list.php" class="nav-item nav-link">Appointment</a>
-            <a href="./about.html" class="nav-item nav-link">About</a>
+            <!-- <a href="./about.php" class="nav-item nav-link">About</a> -->
             <a href="./contact.php" class="nav-item nav-link">Contact</a>
 
           <?php } else {

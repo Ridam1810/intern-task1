@@ -33,6 +33,12 @@ body {
   height: auto;
   float: right;
 }
+.fdm {
+  padding: 0;
+  width: 390px;
+  height: auto;
+  float: middle;
+}
 
 h1 {
   font-size: 36px;

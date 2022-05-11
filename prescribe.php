@@ -28,7 +28,8 @@ if (isset($_POST['view'])) {
         ";
 }
 // }
-
+$query = $source->Query("Select * FROM guest where id=?", [$_GET['id']]);
+$profile = $source->singleRow();
 if (isset($_POST['submit'])) {
 
 
@@ -39,19 +40,36 @@ if (isset($_POST['submit'])) {
 
 
   $data = [
-    'name' => $_POST['name'],
-    'email' => $_POST['email'],
-    'phone' => $_POST['phone'],
-    'address' => $_POST['address'],
-    'ptype' => $_POST['ptype'],
-    'file' => $fileNameNew,
-    //'file' => 'abc.jpg',
-    'message' => $_POST['message'],
-    'response' => $_POST['response'],
-    'test_list' => $_POST['test_list'],
-    'guestId' => $_POST['guestId']
+    'prescription' => $_POST['prescription'],
+    
+    
   ];
+  // $data = [
+  //   'prescription' => $_POST['prescription'],
+  //   'm1' => $_POST['m1'],
+  //   't1' => $_POST['t1'],
+  //   'd1' => $_POST['d1'],
+  //   'm2' => $_POST['m2'],
+  //   't2' => $_POST['t2'],
+  //   'd2' => $_POST['d2'],
+  //   'm3' => $_POST['m3'],
+  //   't3' => $_POST['t3'],
+  //   'd3' => $_POST['d3'],
+  //   'm4' => $_POST['m4'],
+  //   't4' => $_POST['t4'],
+  //   'd4' => $_POST['d4'],
+  //   'm5' => $_POST['m5'],
+  //   't5' => $_POST['t5'],
+  //   'd5' => $_POST['d5'],
+  //   'm6' => $_POST['m6'],
+  //   't6' => $_POST['t6'],
+  //   'd6' => $_POST['d3'],
+  //   'm7' => $_POST['m7'],
+  //   't7' => $_POST['t7'],
+  //   'd7' => $_POST['d7']
 
+    
+  // ];
 
 
 
@@ -59,41 +77,47 @@ if (isset($_POST['submit'])) {
   // //   $chk .= $chk1 . ",";
   // // }
   if ($source->Query(
-    "INSERT INTO `guest` (name,email,phone,address,ptype,file,message,response,test_list,guestId) VALUES (?,?,?,?,?,?,?,?,?,?)",
-    [$data['name'], $data['email'], $data['phone'], $data['address'], $data['ptype'], $data['file'], $data['message'],$data['response'],$data['test_list'],$data['guestId']]
+    "UPDATE guest SET prescription=? where id=?",
+    [$data['prescription'], $_GET['id']]
   )) {
   }
+  // if ($source->Query(
+  //   "UPDATE guest SET prescription=?,m1=?, t1=?, d1=?,m2=?, t2=?, d2=?,m3=?, t3=?, d3=?,m4=?, t4=?, d4=?,m5=?, t5=?, d5=?,m6=?, t6=?, d6=?,m7=?, t7=?, d7=?, where id=?",
+  //   [$data['prescription'],$data['m1'],$data['t1'],$data['d1'],$data['m2'],$data['t2'],$data['d2'],$data['m3'],$data['t3'],$data['d3'],$data['m4'],$data['t4'],$data['d4'],$data['m5'],$data['t5'],$data['d5'],$data['m6'],$data['t6'],$data['d6'],$data['m7'],$data['t7'],$data['d7'], $_GET['id']]
+  // )) {
+  // }
+  
 
 
 
 
-  $to = $_POST['email']; // Receiver Email ID, Replace with your email ID
-  $subject = "Confirmation";
-  $message = "Name :" . $_POST['name'] . "\n" . "Phone :" . $_POST['phone'] . "\n" . "Address :" . $_POST['address'] . "\n" . "Problem Type :" . $_POST['ptype'] . "\n" . "\n" . "Wrote the following :" . "\n\n" . $_POST['message'];
-  $headers = "From: " . "rithyamforbe@gmail.com";
+  // $to = $_POST['email']; // Receiver Email ID, Replace with your email ID
+  // $subject = "Confirmation";
+  // $message = "Name :" . $_POST['name'] . "\n" . "Phone :" . $_POST['phone'] . "\n" . "Address :" . $_POST['address'] . "\n" . "Problem Type :" . $_POST['ptype'] . "\n" . "\n" . "Wrote the following :" . "\n\n" . $_POST['message'];
+  // $headers = "From: " . "rithyamforbe@gmail.com";
 
-  $_SESSION['regname'] = $_POST['name'];
-  $_SESSION['filename'] = $fileNameNew;
-
-
-  if (mail($to, $subject, $message, $headers)) {
-    // header("Location: patient_confirmation.php");
+  // $_SESSION['regname'] = $_POST['name'];
+  // $_SESSION['filename'] = $fileNameNew;
 
 
-    echo "
-            <script type=\"text/javascript\">
-            window.location.href = 'patient_confirmation.php';
-            </script>
-        ";
-    // echo RedirectURL('patient_confirmation.php');
-  } else {
-    // header("Location: error.php");
-    echo "
-            <script type=\"text/javascript\">
-            window.location.href = 'error.php';
-            </script>
-        ";
-  }
+  // if (mail($to, $subject, $message, $headers)) {
+  //   // header("Location: patient_confirmation.php");
+
+
+  //   echo "
+  //           <script type=\"text/javascript\">
+  //           window.location.href = 'patient_confirmation.php';
+  //           </script>
+  //       ";
+  //   // echo RedirectURL('patient_confirmation.php');
+  // } else {
+  //   // header("Location: error.php");
+  //   echo "
+  //           <script type=\"text/javascript\">
+  //           window.location.href = 'error.php';
+  //           </script>
+  //       ";
+  // }
 }
 
 
@@ -129,79 +153,94 @@ if (isset($_POST['submit'])) {
 
   <div class="container">
 
-    <h1>Patient Details</h1>
+    <h1>Prescription</h1>
 
     <form action="" method="post" >
 
-      <div class="fdl">
-
+     
+    <div class="row">
+  <div class="col-6">
+    <input name="m1" type="text" class="form-control" placeholder="Medicine Name" >
+  </div>
+  <div class="col-2">
+    <input name="t1" type="text" class="form-control" placeholder="Time" >
+  </div>
+  <div class="col-2">
+    <input  name="d1" type="text" class="form-control" placeholder="Days" >
+  </div>
+</div>
+<div class="row">
+  <div class="col-6">
+    <input name="m2" type="text" class="form-control" placeholder="Medicine Name" >
+  </div>
+  <div class="col-2">
+    <input name="t2" type="text" class="form-control" placeholder="Time" >
+  </div>
+  <div class="col-2">
+    <input  name="d2" type="text" class="form-control" placeholder="Days" >
+  </div>
+</div>
+<div class="row">
+  <div class="col-6">
+    <input name="m3" type="text" class="form-control" placeholder="Medicine Name" >
+  </div>
+  <div class="col-2">
+    <input name="t3" type="text" class="form-control" placeholder="Time" >
+  </div>
+  <div class="col-2">
+    <input  name="d3" type="text" class="form-control" placeholder="Days" >
+  </div>
+</div>
+<div class="row">
+  <div class="col-6">
+    <input name="m4" type="text" class="form-control" placeholder="Medicine Name" >
+  </div>
+  <div class="col-2">
+    <input name="t4" type="text" class="form-control" placeholder="Time" >
+  </div>
+  <div class="col-2">
+    <input  name="d4" type="text" class="form-control" placeholder="Days" >
+  </div>
+</div>
+<div class="row">
+  <div class="col-6">
+    <input name="m5" type="text" class="form-control" placeholder="Medicine Name" >
+  </div>
+  <div class="col-2">
+    <input name="t5" type="text" class="form-control" placeholder="Time" >
+  </div>
+  <div class="col-2">
+    <input  name="d5" type="text" class="form-control" placeholder="Days" >
+  </div>
+</div>
+<div class="row">
+  <div class="col-6">
+    <input name="m6" type="text" class="form-control" placeholder="Medicine Name" >
+  </div>
+  <div class="col-2">
+    <input name="t6" type="text" class="form-control" placeholder="Time" >
+  </div>
+  <div class="col-2">
+    <input  name="d6" type="text" class="form-control" placeholder="Days" >
+  </div>
+</div>
+<div class="row">
+  <div class="col-6">
+    <input name="m7" type="text" class="form-control" placeholder="Medicine Name" >
+  </div>
+  <div class="col-2">
+    <input name="t7" type="text" class="form-control" placeholder="Time" >
+  </div>
+  <div class="col-2">
+    <input  name="d7" type="text" class="form-control" placeholder="Days" >
+  </div>
+</div>
         
-        <!-- <input id="name" name="fullname" type="text" placeholder="Alex Hunter" required> -->
-        <input type="view" name="submit" value="submit" class="btn btn-outline-primary">
-        <!-- <button type="submit" name="view" value="view" class="btn btn-outline-primary"></button> -->
-        <label for="phone">Phone</label>
-        <?php if($_SESSION['utype']!=3) {?>
-        <input id="phone" name="phone" type="tel" placeholder="+880-1787-748377" required>
-        <?php  } else{ ?>
-          <input id="phone" type="phone" name="phone" value="<?php echo $_SESSION['phone']; ?>" readonly>
+        
 
-<?php  }?>
-      </div>
-
-      <div class="fdr">
-
-        <label for="email">Email</label>
-        <input id="email" name="email" type="email" value="<?php echo $_SESSION['email']; ?>" readonly>
-
-        <label for="address">Address</label>
-        <?php if ($_SESSION['utype']>0) {?>
-				<input id="address" type="address"  name="address" value="<?php echo $_SESSION['add']; ?>" readonly>
-				<?php  } else{ ?>
-          <input id="address" name="address" type="address" placeholder="Street" required>
-			<?php  } ?>
-
-        <label for="formFileSm" class="form-label"></label>
-        <input class="form-control form-control-sm" id="file" name="file" type="file" >
-
-      </div>
-
-
-
-
-
-
-
-
-      <label for="speciality">Choose A speciality</label>
-      <select name="ptype" id="speciality">
-        <option value="Allergy and Immunology">Allergy and Immunology</option>
-        <option value="Anesthesiology">Anesthesiology</option>
-        <option value="Dermatology">Dermatology</option>
-        <option value="Diagnostic radiology">Diagnostic radiology</option>
-        <option value="Emergency medicine">Emergency medicine</option>
-        <option value="Family medicine">Family medicine</option>
-        <option value="Internal medicine">Internal medicine</option>
-        <option value="Medical genetics">Medical genetics</option>
-        <option value="Neurology">Neurology</option>
-        <option value="Nuclear medicine">Nuclear medicine</option>
-        <option value="Obstetrics and gynecology">Obstetrics and gynecology</option>
-        <option value="Ophthalmology">Ophthalmology</option>
-        <option value="Pathology">Pathology</option>
-        <option value="Pediatrics">Pediatrics</option>
-        <option value="Physical medicine and Rehabilitation">Physical medicine and Rehabilitation</option>
-        <option value="Preventive medicine">Preventive medicine</option>
-        <option value="Psychiatry">Psychiatry</option>
-        <option value="Urology">Urology</option>
-      </select>
-
-      <label for="message">Message</label>
-      <textarea name="message" id="message" cols="30" rows="4" placeholder="Write down your messages here" required></textarea>
-      <input id="response" type="response" name="response" value="(Pending)" hidden>
-      <input id="test_list" type="test_list" name="test_list" value="(Pending)" hidden>
-      <input id="guestId" type="guestId" name="guestId" value="<?php echo $_SESSION['idno']; ?>" hidden>
-
-      <br>
-      <label for="checkbox" id="cbtext"><input type="checkbox" id="checkbox" required>I agree to the <a href="t&c.html">terms of service</a> and <a href="t&c.html">privacy policy</a> .</label>
+      <label for="prescription">Any Advice</label>
+      <textarea name="prescription" id="message" cols="30" rows="10"  required></textarea>
+      
 
       <!-- <button id="submit" type="submit" name="submit" value="submit">Submit</button> -->
       <div class="signupbtn">

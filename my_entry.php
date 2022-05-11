@@ -96,6 +96,11 @@ if (!isset($_SESSION['username'])) {
                                          <a href='result_upload.php?id=" . $row->id . "' class='.btn-sm btn-outline-danger mr-2'>Upload tests Results</a> </td>
                                         </tr>";}
                                     ?>
+                                    <?php if(!is_null($row->m1)){
+                                        echo "<td> 
+                                         <a href='prescription.php?id=" . $row->id . "' class='.btn-sm btn-outline-danger mr-2'>View prescription</a> </td>
+                                        </tr>";}
+                                    ?>
 
 
 
